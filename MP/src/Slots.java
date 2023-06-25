@@ -3,7 +3,6 @@ public class Slots {
     private int price;
     private int qty;
 
-
     public Slots(Item item, int price, int qty){
         this.item = item;
         this.price = price;
@@ -11,10 +10,7 @@ public class Slots {
     }
 
     public boolean getAvailability(){
-        if(qty > 0)
-            return true;
-        else
-            return false;
+        return qty > 0;
     }
 
     public int getPrice() {
