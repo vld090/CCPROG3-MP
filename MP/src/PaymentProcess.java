@@ -17,6 +17,8 @@ public class PaymentProcess {
 
     }
     public int collectPayment() {
+        int collected = balance;
         balance = 0;
+        return collected;
     }
 }
