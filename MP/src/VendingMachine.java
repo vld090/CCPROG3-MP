@@ -47,17 +47,40 @@ public class VendingMachine {
     }
 
 
-    public Item dispenseItem(int slotNumber){
-
+    public Item dispenseItem(int slotNumber) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            if (slot.getAvailability()) {
+                slot.setQty(slot.getQty() - 1);
+                return slot.getItem();
+            } else {
+                System.out.println("Item not available in slot " + slotNumber);
+            }
+        } else {
+            System.out.println("Invalid slot number");
+        }
+        return null;
     }
 
 
-    public void restockItem(int slotNumber, int qty){
-
+    public void restockItem(int slotNumber, int qty) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setQty(slot.getQty() + qty);
+            System.out.println("Restocked item in slot " + slotNumber + " with quantity " + qty);
+        } else {
+            System.out.println("Invalid slot number");
+        }
     }
 
-    public void setPrice(int slotNumber, int qty){
-
+    public void setPrice(int slotNumber, int price) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setPrice(price);
+            System.out.println("Set price of item in slot " + slotNumber + " to " + price);
+        } else {
+            System.out.println("Invalid slot number");
+        }
     }
 
 
