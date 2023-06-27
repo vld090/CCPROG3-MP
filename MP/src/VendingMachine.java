@@ -52,7 +52,9 @@ public class VendingMachine {
             Slots slot = slots[slotNumber];
             if (slot.getAvailability()) {
                 slot.setQty(slot.getQty() - 1);
-                return slot.getItem();
+                Item item = slot.getItem();
+                System.out.println("Dispensing " + item.getName() + " from slot " + slotNumber);
+                return item;
             } else {
                 System.out.println("Item not available in slot " + slotNumber);
             }
@@ -61,6 +63,7 @@ public class VendingMachine {
         }
         return null;
     }
+
 
 
     public void restockItem(int slotNumber, int qty) {
