@@ -1,8 +1,8 @@
 public class Transaction {
-    private int payment;
     private Item item;
+    private int payment;
 
-    public Transaction(Item item, int payment){
+    public Transaction(Item item, int payment) {
         this.item = item;
         this.payment = payment;
     }

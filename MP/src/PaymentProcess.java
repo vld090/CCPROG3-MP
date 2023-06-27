@@ -11,10 +11,13 @@ public class PaymentProcess {
     }
 
     public void giveChange(int change){
-        if (balance >= change) {
+        if (balance >= change)
+        {
             balance -= change;
             System.out.println("Dispensed change of " + change);
-        } else {
+        }
+        else
+        {
             System.out.println("Insufficient balance to provide change.");
         }
     }
@@ -27,6 +30,7 @@ public class PaymentProcess {
     public int collectPayment() {
         int collectedAmount = balance;
         balance = 0;
+        System.out.println("Collected payment of: " + collectedAmount);
         return collectedAmount;
     }
 }
