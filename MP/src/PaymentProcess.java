@@ -11,6 +11,7 @@ public class PaymentProcess {
         initializeBillDenominations();
     }
 
+    // Initialize the bill denominations with initial quantities
     private void initializeBillDenominations() {
         billDenominations.put("P20", 0);
         billDenominations.put("P50", 0);
@@ -20,6 +21,7 @@ public class PaymentProcess {
         billDenominations.put("P1000", 0);
     }
 
+    // Receive payment in a specific denomination and update the balance
     public void receivePayment(String denomination, int quantity) {
         if (billDenominations.containsKey(denomination)) {
             int currentQuantity = billDenominations.get(denomination);
@@ -32,6 +34,7 @@ public class PaymentProcess {
         }
     }
 
+    // Give change to the user based on the requested amount
     public void giveChange(int change) {
         if (balance >= change) {
             if (hasSufficientChange(change)) {
@@ -46,10 +49,12 @@ public class PaymentProcess {
         }
     }
 
+    // Check if the machine has sufficient change to provide
     private boolean hasSufficientChange(int change) {
         return balance >= change && change <= getTotalChange();
     }
 
+    // Calculate the total change available in the machine
     private int getTotalChange() {
         int totalChange = 0;
         for (Map.Entry<String, Integer> entry : billDenominations.entrySet()) {
@@ -60,6 +65,7 @@ public class PaymentProcess {
         return totalChange;
     }
 
+    // Distribute the change to the user using available bill denominations
     private void distributeChange(int change) {
         for (Map.Entry<String, Integer> entry : billDenominations.entrySet()) {
             String denomination = entry.getKey();
@@ -77,6 +83,7 @@ public class PaymentProcess {
         }
     }
 
+    // Replenish the quantity of a specific bill denomination
     public void replenishChange(String denomination, int quantity) {
         if (billDenominations.containsKey(denomination)) {
             int currentQuantity = billDenominations.get(denomination);
@@ -87,6 +94,7 @@ public class PaymentProcess {
         }
     }
 
+    // Collect the payment and reset the balance to zero
     public int collectPayment() {
         int collectedAmount = balance;
         balance = 0;
@@ -94,6 +102,7 @@ public class PaymentProcess {
         return collectedAmount;
     }
 
+    // Get the amount associated with a specific denomination
     private int getDenominationAmount(String denomination) {
         switch (denomination) {
             case "P20":
