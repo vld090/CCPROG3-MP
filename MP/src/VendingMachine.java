@@ -5,8 +5,7 @@ public class VendingMachine {
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
 
-
-    public VendingMachine(Slots[] slots, PaymentProcess paymentProcess){
+    public VendingMachine(Slots[] slots, PaymentProcess paymentProcess) {
         this.slots = slots;
         this.paymentProcess = paymentProcess;
         this.transactionLog = new ArrayList<>();
@@ -29,32 +28,29 @@ public class VendingMachine {
         }
     }
 
-    public void receivePayment(int payment){
-        paymentProcess.receivePayment(payment);
+    public void receivePayment(String denomination, int quantity) {
+        paymentProcess.receivePayment(denomination, quantity);
     }
 
-    public void produceChange(int amount){
+    public void produceChange(int amount) {
         paymentProcess.giveChange(amount);
     }
 
-    public int collectPayment(){
+    public int collectPayment() {
         return paymentProcess.collectPayment();
     }
 
-    public void replenishChange(int denomination, int amount) {
-        paymentProcess.replenishChange(denomination, amount);
-        System.out.println("Replenished change: " + amount + " units of " + denomination);
+    public void replenishChange(String denomination, int quantity) {
+        paymentProcess.replenishChange(denomination, quantity);
+        System.out.println("Replenished change: " + quantity + " units of " + denomination);
     }
-
 
     public Item dispenseItem(int slotNumber) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
             if (slot.getAvailability()) {
                 slot.setQty(slot.getQty() - 1);
-                Item item = slot.getItem();
-                System.out.println("Dispensing " + item.getName() + " from slot " + slotNumber);
-                return item;
+                return slot.getItem();
             } else {
                 System.out.println("Item not available in slot " + slotNumber);
             }
@@ -63,8 +59,6 @@ public class VendingMachine {
         }
         return null;
     }
-
-
 
     public void restockItem(int slotNumber, int qty) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
@@ -86,7 +80,6 @@ public class VendingMachine {
         }
     }
 
-
     public void printTransactionSummary() {
         System.out.println("Transaction Summary:");
         for (Transaction transaction : transactionLog) {
@@ -95,7 +88,4 @@ public class VendingMachine {
             System.out.println("Item: " + item.getName() + " - Payment: " + payment);
         }
     }
-
-
-
 }
