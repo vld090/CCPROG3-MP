@@ -57,7 +57,8 @@ public class VendingMachineFactory {
             // This could include displaying available items, accepting payments,
             // dispensing items, and so on
             System.out.println("Testing the vending machine...");
-        } else {
+        }
+        else {
             System.out.println("No vending machine created yet.");
         }
     }
