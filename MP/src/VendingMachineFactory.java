@@ -1,12 +1,19 @@
 import java.util.Scanner;
-
+/**
+ * Factory class for creating and testing vending machines.
+ */
 public class VendingMachineFactory {
     private VendingMachine vendingMachine;
-
+    /**
+     * Constructs a VendingMachineFactory object.
+     */
     public VendingMachineFactory() {
         this.vendingMachine = null;
     }
 
+    /**
+     * Starts the vending machine factory menu.
+     */
     public void start() {
         Scanner scanner = new Scanner(System.in);
 
@@ -18,7 +25,7 @@ public class VendingMachineFactory {
             System.out.println("3. Exit program");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
-            scanner.nextLine(); // Consume newline character
+            scanner.nextLine();
 
             switch (choice) {
                 case 1:
@@ -38,9 +45,11 @@ public class VendingMachineFactory {
 
         scanner.close();
     }
-
+    /**
+     * Creates new vending machine
+     */
     public void createVendingMachine() {
-        // Create and populate the slots array with initial values
+        // put the stuff inside the slots
         Slots[] slots = new Slots[8];
         slots[0] = new Slots(new Item("Hotdog           ", 35), 35, 10);
         slots[1] = new Slots(new Item("Ham              " , 45), 45, 10);
@@ -54,11 +63,13 @@ public class VendingMachineFactory {
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
 
-        // Create the vending machine with the populated slots array and payment process
+        // create the vending machine
         this.vendingMachine = new VendingMachine(slots, paymentProcess);
         System.out.println("New vending machine created successfully.");
     }
-
+    /**
+     * Tests the vending machine.
+     */
     public void testVendingMachine() {
         if (this.vendingMachine != null) {
             Scanner scanner = new Scanner(System.in);
@@ -126,7 +137,9 @@ public class VendingMachineFactory {
             System.out.println("No vending machine created yet.");
         }
     }
-
+    /**
+     * Exit the Program
+     */
     public void exitProgram() {
         System.out.println("Exiting program.");
         System.exit(0);

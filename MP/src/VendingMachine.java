@@ -1,18 +1,28 @@
 import java.util.ArrayList;
-
+/**
+ * Represents a vending machine that holds slots of items and handles transactions.
+ */
 public class VendingMachine {
     private Slots[] slots;
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
-//    private int calorieCounter; // New instance variable for calorie summary
 
+    /**
+     * Constructs a VendingMachine object with the specified slots and payment process.
+     *
+     * @param slots          the array of slots containing items
+     * @param paymentProcess the payment process for handling transactions
+     */
     public VendingMachine(Slots[] slots, PaymentProcess paymentProcess) {
         this.slots = slots;
         this.paymentProcess = paymentProcess;
         this.transactionLog = new ArrayList<>();
-//        this.calorieCounter = 0; // Initialize calorie counter to zero
     }
 
+
+    /**
+     * Displays the available items in the vending machine.
+     */
     public void displayItems() {
         System.out.println("Available items:");
         for (int i = 0; i < slots.length; i++) {
@@ -30,23 +40,56 @@ public class VendingMachine {
         }
     }
 
+
+    /**
+     * Receives payment in the specified denomination and quantity.
+     *
+     * @param denomination the denomination of the payment
+     * @param quantity     the quantity of the payment
+     */
     public void receivePayment(String denomination, int quantity) {
         paymentProcess.receivePayment(denomination, quantity);
     }
 
+
+    /**
+     * Produces change for the specified amount.
+     *
+     * @param amount the amount of change to produce
+     */
     public void produceChange(int amount) {
         paymentProcess.giveChange(amount);
     }
 
+
+    /**
+     * Collects the payment from the vending machine and returns the total amount collected.
+     *
+     * @return the total amount collected
+     */
     public int collectPayment() {
         return paymentProcess.collectPayment();
     }
 
+
+    /**
+     * Replenishes the quantity of a specific bill denomination in the vending machine.
+     *
+     * @param denomination the denomination of the bill to replenish
+     * @param quantity     the quantity of bills to replenish
+     */
     public void replenishChange(String denomination, int quantity) {
         paymentProcess.replenishChange(denomination, quantity);
         System.out.println("Replenished change: " + quantity + " units of " + denomination);
     }
 
+
+    /**
+     * Dispenses an item from the specified slot number.
+     *
+     * @param slotNumber the slot number of the item to dispense
+     * @return the dispensed item, or null if the slot is empty or the payment is insufficient
+     */
     public Item dispenseItem(int slotNumber) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
@@ -70,7 +113,12 @@ public class VendingMachine {
         return null;
     }
 
-
+    /**
+     * Restocks the item quantity in the specified slot.
+     *
+     * @param slotNumber the slot number to restock
+     * @param qty        the quantity to add to the slot
+     */
     public void restockItem(int slotNumber, int qty) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
@@ -81,6 +129,13 @@ public class VendingMachine {
         }
     }
 
+
+    /**
+     * Sets the price of the item in the specified slot.
+     *
+     * @param slotNumber the slot number to set the price
+     * @param price      the price to set for the item
+     */
     public void setPrice(int slotNumber, int price) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
@@ -91,6 +146,10 @@ public class VendingMachine {
         }
     }
 
+
+    /**
+     * Prints the transaction summary.
+     */
     public void printTransactionSummary() {
         System.out.println("Transaction Summary:");
         for (Transaction transaction : transactionLog) {
@@ -100,8 +159,5 @@ public class VendingMachine {
         }
     }
 
-//    public int getCalorieSummary() {
-//        return calorieCounter;
-//    }
 
 }

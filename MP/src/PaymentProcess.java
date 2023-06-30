@@ -1,10 +1,19 @@
 import java.util.HashMap;
 import java.util.Map;
 
+
+/**
+ * Handles the payment process in a vending machine.
+ */
 public class PaymentProcess {
     private int balance;
     private Map<String, Integer> billDenominations;
 
+    /**
+     * Constructs a transaction with the specified item and payment.
+     *
+     * @param balance    the item in the transaction
+     */
     public PaymentProcess(int balance) {
         this.balance = balance;
         this.billDenominations = new HashMap<>();
@@ -21,7 +30,12 @@ public class PaymentProcess {
         billDenominations.put("P1000", 0);
     }
 
-    // Receive payment in a specific denomination and update the balance
+    /**
+     * Receive payment in a specific denomination and update the balance.
+     *
+     * @param denomination the denomination of the payment
+     * @param quantity     the quantity of the payment
+     */
     public void receivePayment(String denomination, int quantity) {
         if (billDenominations.containsKey(denomination)) {
             int currentQuantity = billDenominations.get(denomination);
@@ -34,7 +48,12 @@ public class PaymentProcess {
         }
     }
 
-    // Give change to the user based on the requested amount
+
+    /**
+     * Collect the payment and reset the balance to zero.
+     *
+     * @return the collected payment amount
+     */
     public void giveChange(int change) {
         if (balance >= change) {
             if (hasSufficientChange(change)) {
@@ -83,7 +102,13 @@ public class PaymentProcess {
         }
     }
 
-    // Replenish the quantity of a specific bill denomination
+
+    /**
+     * Replenishes the quantity of a specific bill denomination in the vending machine.
+     *
+     * @param denomination the denomination of the bill to replenish
+     * @param quantity the quantity of bills to replenish
+     */
     public void replenishChange(String denomination, int quantity) {
         if (billDenominations.containsKey(denomination)) {
             int currentQuantity = billDenominations.get(denomination);
@@ -94,7 +119,12 @@ public class PaymentProcess {
         }
     }
 
-    // Collect the payment and reset the balance to zero
+
+    /**
+     * Collect the payment and reset the balance to zero.
+     *
+     * @return the collected payment amount
+     */
     public int collectPayment() {
         int collectedAmount = balance;
         balance = 0;
@@ -121,7 +151,11 @@ public class PaymentProcess {
                 return 0;
         }
     }
-
+    /**
+     * Get the current balance.
+     *
+     * @return the current balance
+     */
     public int getBalance() {
         return balance;
     }
