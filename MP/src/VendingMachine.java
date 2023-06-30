@@ -4,13 +4,13 @@ public class VendingMachine {
     private Slots[] slots;
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
-    private int calorieCounter; // New instance variable for calorie summary
+//    private int calorieCounter; // New instance variable for calorie summary
 
     public VendingMachine(Slots[] slots, PaymentProcess paymentProcess) {
         this.slots = slots;
         this.paymentProcess = paymentProcess;
         this.transactionLog = new ArrayList<>();
-        this.calorieCounter = 0; // Initialize calorie counter to zero
+//        this.calorieCounter = 0; // Initialize calorie counter to zero
     }
 
     public void displayItems() {
@@ -51,10 +51,16 @@ public class VendingMachine {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
             if (slot.getAvailability()) {
-                slot.setQty(slot.getQty() - 1);
-                Item item = slot.getItem();
-                calorieCounter += item.getCalories(); // Update the calorieCounter
-                return item;
+                if (paymentProcess.getBalance() >= slot.getPrice()) {
+                    slot.setQty(slot.getQty() - 1);
+                    Item item = slot.getItem();
+                    paymentProcess.giveChange(paymentProcess.getBalance() - slot.getPrice());
+                    paymentProcess.collectPayment();
+                    transactionLog.add(new Transaction(item, slot.getPrice()));
+                    return item;
+                } else {
+                    System.out.println("Insufficient payment. Please insert more money.");
+                }
             } else {
                 System.out.println("Item not available in slot " + slotNumber);
             }
@@ -94,8 +100,8 @@ public class VendingMachine {
         }
     }
 
-    public int getCalorieSummary() {
-    return calorieCounter;
-    }
+//    public int getCalorieSummary() {
+//        return calorieCounter;
+//    }
 
 }

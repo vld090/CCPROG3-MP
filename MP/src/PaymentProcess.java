@@ -121,4 +121,9 @@ public class PaymentProcess {
                 return 0;
         }
     }
+
+    public int getBalance() {
+        return balance;
+    }
+
 }
