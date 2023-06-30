@@ -42,14 +42,14 @@ public class VendingMachineFactory {
     public void createVendingMachine() {
         // Create and populate the slots array with initial values
         Slots[] slots = new Slots[8];
-        slots[0] = new Slots(new Item("Hotdog", 35), 35, 10);
-        slots[1] = new Slots(new Item("Ham", 45), 45, 10);
-        slots[2] = new Slots(new Item("Beef Slices", 40), 50, 10);
-        slots[3] = new Slots(new Item("Lettuce", 10), 15, 10);
-        slots[4] = new Slots(new Item("Tomato", 10), 25, 10);
-        slots[5] = new Slots(new Item("Egg", 20), 20, 10);
+        slots[0] = new Slots(new Item("Hotdog           ", 35), 35, 10);
+        slots[1] = new Slots(new Item("Ham              " , 45), 45, 10);
+        slots[2] = new Slots(new Item("Beef Slices      ", 40), 50, 10);
+        slots[3] = new Slots(new Item("Lettuce          ", 10), 15, 10);
+        slots[4] = new Slots(new Item("Tomato           ", 10), 25, 10);
+        slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
         slots[6] = new Slots(new Item("Whole wheat Bread", 10), 50, 10);
-        slots[7] = new Slots(new Item("White Bread", 30), 30, 10);
+        slots[7] = new Slots(new Item("White Bread      ", 30), 30, 10);
 
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
