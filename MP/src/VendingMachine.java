@@ -76,7 +76,8 @@ public class VendingMachine {
                     slot.setQty(slot.getQty() - 1);
                     Item item = slot.getItem();
                     paymentProcess.giveChange(paymentProcess.getBalance() - slot.getPrice());
-                    paymentProcess.collectPayment();
+                    int collect = paymentProcess.collectPayment();
+                    System.out.println("Collected payment of: " + collect);
                     transactionLog.add(new Transaction(item, slot.getPrice()));
                     return item;
                 } else {
@@ -140,8 +141,8 @@ public class VendingMachine {
      *
      */
     public void emptyMoney() {
-        int collectedAmount = paymentProcess.collectPayment();
-        System.out.println("Emptied money from vending machine. Collected amount: " + collectedAmount);
+        paymentProcess.collectPayment();
+        paymentProcess.ZeroBillDenominations();
     }
     
     /**

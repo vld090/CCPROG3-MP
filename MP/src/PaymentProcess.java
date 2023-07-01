@@ -30,14 +30,15 @@ public class PaymentProcess {
         billDenominations.put("P1000", 0);
     }
 
-    /**
-     * Returns the available denominations for change.
-     *
-     * @return the available denominations
-     */
-    public String[] getAvailableDenominations() {
-        return billDenominations.keySet().toArray(new String[0]);
+    public void ZeroBillDenominations() {
+        billDenominations.put("P20", 0);
+        billDenominations.put("P50", 0);
+        billDenominations.put("P100", 0);
+        billDenominations.put("P200", 0);
+        billDenominations.put("P500", 0);
+        billDenominations.put("P1000", 0);
     }
+
 
     /**
      * Receive payment in a specific denomination and update the balance.
@@ -137,7 +138,6 @@ public class PaymentProcess {
     public int collectPayment() {
         int collectedAmount = balance;
         balance = 0;
-        System.out.println("Collected payment of: " + collectedAmount);
         return collectedAmount;
     }
 
