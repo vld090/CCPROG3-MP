@@ -91,7 +91,47 @@ public class VendingMachineFactory {
                 scanner.nextLine(); // Consume newline character
 
                 switch (choice) {
-                    // Rest of the switch cases...
+                    case 1:
+                        this.vendingMachine.displayItems();
+                        break;
+
+                    case 2:
+                        System.out.print("Enter denomination: ");
+                        String denomination = scanner.nextLine();
+                        System.out.print("Enter quantity: ");
+                        int quantity = scanner.nextInt();
+                        this.vendingMachine.receivePayment(denomination, quantity);
+                        break;
+
+                    case 3:
+                        System.out.print("Enter slot number: ");
+                        int slotNumber = scanner.nextInt();
+                        scanner.nextLine(); // Consume newline character
+                        Item item = this.vendingMachine.dispenseItem(slotNumber);
+                        if (item != null) {
+                            System.out.println("Dispensed item: " + item.getName());
+                        }
+                        break;
+
+                    case 4:
+                        System.out.print("Enter slot number: ");
+                        int restockSlotNumber = scanner.nextInt();
+                        System.out.print("Enter quantity: ");
+                        int restockQty = scanner.nextInt();
+                        this.vendingMachine.restockItem(restockSlotNumber, restockQty);
+                        break;
+
+                    case 5:
+                        System.out.print("Enter slot number: ");
+                        int setPriceSlotNumber = scanner.nextInt();
+                        System.out.print("Enter price: ");
+                        int setPrice = scanner.nextInt();
+                        this.vendingMachine.setPrice(setPriceSlotNumber, setPrice);
+                        break;
+
+                    case 6:
+                        this.vendingMachine.printTransactionSummary();
+                        break;
 
                     case 7: // Add case for replenishing change denominations
                         System.out.print("Enter denomination to replenish: ");
