@@ -36,7 +36,7 @@ public class PaymentProcess {
      * @return the available denominations
      */
     public String[] getAvailableDenominations() {
-        return changeDenominations.keySet().toArray(new String[0]);
+        return billDenominations.keySet().toArray(new String[0]);
     }
 
     /**
