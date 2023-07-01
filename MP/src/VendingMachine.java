@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+
 /**
  * Represents a vending machine that holds slots of items and handles transactions.
  */
@@ -7,7 +8,7 @@ public class VendingMachine {
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
 
-    /**
+      /**
      * Constructs a VendingMachine object with the specified slots and payment process.
      *
      * @param slots          the array of slots containing items
@@ -18,7 +19,6 @@ public class VendingMachine {
         this.paymentProcess = paymentProcess;
         this.transactionLog = new ArrayList<>();
     }
-
 
     /**
      * Displays the available items in the vending machine.
@@ -40,7 +40,6 @@ public class VendingMachine {
         }
     }
 
-
     /**
      * Receives payment in the specified denomination and quantity.
      *
@@ -51,7 +50,6 @@ public class VendingMachine {
         paymentProcess.receivePayment(denomination, quantity);
     }
 
-
     /**
      * Produces change for the specified amount.
      *
@@ -61,7 +59,6 @@ public class VendingMachine {
         paymentProcess.giveChange(amount);
     }
 
-
     /**
      * Collects the payment from the vending machine and returns the total amount collected.
      *
@@ -70,7 +67,6 @@ public class VendingMachine {
     public int collectPayment() {
         return paymentProcess.collectPayment();
     }
-
 
     /**
      * Replenishes the quantity of a specific bill denomination in the vending machine.
@@ -82,7 +78,6 @@ public class VendingMachine {
         paymentProcess.replenishChange(denomination, quantity);
         System.out.println("Replenished change: " + quantity + " units of " + denomination);
     }
-
 
     /**
      * Dispenses an item from the specified slot number.
@@ -122,13 +117,12 @@ public class VendingMachine {
     public void restockItem(int slotNumber, int qty) {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
-            slot.setQty(slot.getQty() + qty);
+            slot.setQty(qty);
             System.out.println("Restocked item in slot " + slotNumber + " with quantity " + qty);
         } else {
             System.out.println("Invalid slot number");
         }
     }
-
 
     /**
      * Sets the price of the item in the specified slot.
@@ -146,7 +140,6 @@ public class VendingMachine {
         }
     }
 
-
     /**
      * Prints the transaction summary.
      */
@@ -159,5 +152,12 @@ public class VendingMachine {
         }
     }
 
-
+    /**
+     * Empties the money from the vending machine, collecting the amount.
+     * The collected amount can be retrieved by calling {@link #collectPayment()}.
+     */
+    public void emptyMoney() {
+        int collectedAmount = paymentProcess.collectPayment();
+        System.out.println("Emptied money from vending machine. Collected amount: " + collectedAmount);
+    }
 }
