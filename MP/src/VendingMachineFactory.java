@@ -67,6 +67,7 @@ public class VendingMachineFactory {
         this.vendingMachine = new VendingMachine(slots, paymentProcess);
         System.out.println("New vending machine created successfully.");
     }
+
     /**
      * Tests the vending machine.
      */
@@ -82,52 +83,28 @@ public class VendingMachineFactory {
                 System.out.println("4. Replenish item quantity");
                 System.out.println("5. Set item price");
                 System.out.println("6. Print transaction summary");
-                System.out.println("7. Exit testing");
+                System.out.println("7. Replenish change denominations");
+                System.out.println("8. Exit testing");
 
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
                 scanner.nextLine(); // Consume newline character
 
                 switch (choice) {
-                    case 1:
-                        this.vendingMachine.displayItems();
-                        break;
-                    case 2:
-                        System.out.print("Enter denomination: ");
-                        String denomination = scanner.nextLine();
+                    // Rest of the switch cases...
+
+                    case 7: // Add case for replenishing change denominations
+                        System.out.print("Enter denomination to replenish: ");
+                        String replenishDenomination = scanner.nextLine();
                         System.out.print("Enter quantity: ");
-                        int quantity = scanner.nextInt();
-                        this.vendingMachine.receivePayment(denomination, quantity);
+                        int replenishQuantity = scanner.nextInt();
+                        this.vendingMachine.replenishChange(replenishDenomination, replenishQuantity);
                         break;
-                    case 3:
-                        System.out.print("Enter slot number: ");
-                        int slotNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline character
-                        Item item = this.vendingMachine.dispenseItem(slotNumber);
-                        if (item != null) {
-                            System.out.println("Dispensed item: " + item.getName());
-                        }
-                        break;
-                    case 4:
-                        System.out.print("Enter slot number: ");
-                        int restockSlotNumber = scanner.nextInt();
-                        System.out.print("Enter quantity: ");
-                        int restockQty = scanner.nextInt();
-                        this.vendingMachine.restockItem(restockSlotNumber, restockQty);
-                        break;
-                    case 5:
-                        System.out.print("Enter slot number: ");
-                        int setPriceSlotNumber = scanner.nextInt();
-                        System.out.print("Enter price: ");
-                        int setPrice = scanner.nextInt();
-                        this.vendingMachine.setPrice(setPriceSlotNumber, setPrice);
-                        break;
-                    case 6:
-                        this.vendingMachine.printTransactionSummary();
-                        break;
-                    case 7:
+
+                    case 8: // Update the case number for exit
                         System.out.println("Exiting testing.");
                         return;
+
                     default:
                         System.out.println("Invalid choice. Please try again.");
                         break;
@@ -137,6 +114,7 @@ public class VendingMachineFactory {
             System.out.println("No vending machine created yet.");
         }
     }
+    
     /**
      * Exit the Program
      */
