@@ -59,9 +59,9 @@ public class PaymentProcess {
 
 
     /**
-     * Collect the payment and reset the balance to zero.
+     * Dispenses change to the user and updates the balance.
      *
-     * @return the collected payment amount
+     * @param change the amount of change to dispense
      */
     public void giveChange(int change) {
         if (balance >= change) {
