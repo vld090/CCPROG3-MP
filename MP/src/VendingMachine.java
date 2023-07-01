@@ -160,4 +160,11 @@ public class VendingMachine {
         int collectedAmount = paymentProcess.collectPayment();
         System.out.println("Emptied money from vending machine. Collected amount: " + collectedAmount);
     }
+    
+    /**
+     * Displays the available bills and their quantities in the vending machine.
+     */
+    public void displayAvailableBills() {
+        paymentProcess.displayAvailableBills();
+    }
 }

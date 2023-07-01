@@ -51,14 +51,14 @@ public class VendingMachineFactory {
     public void createVendingMachine() {
         // put the stuff inside the slots
         Slots[] slots = new Slots[8];
-        slots[0] = new Slots(new Item("Hotdog           ", 35), 35, 10);
-        slots[1] = new Slots(new Item("Ham              " , 45), 45, 10);
-        slots[2] = new Slots(new Item("Beef Slices      ", 40), 50, 10);
-        slots[3] = new Slots(new Item("Lettuce          ", 10), 15, 10);
-        slots[4] = new Slots(new Item("Tomato           ", 10), 25, 10);
+        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
+        slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
+        slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
+        slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
+        slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
         slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
         slots[6] = new Slots(new Item("Whole wheat Bread", 10), 50, 10);
-        slots[7] = new Slots(new Item("White Bread      ", 30), 30, 10);
+        slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
 
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
@@ -83,8 +83,9 @@ public class VendingMachineFactory {
                 System.out.println("4. Replenish item quantity");
                 System.out.println("5. Set item price");
                 System.out.println("6. Print transaction summary");
-                System.out.println("7. Replenish change denominations");
-                System.out.println("8. Exit testing");
+                System.out.println("7. Display available bills");
+                System.out.println("8. Replenish change denominations");
+                System.out.println("9. Exit testing");
 
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
@@ -137,7 +138,11 @@ public class VendingMachineFactory {
                         this.vendingMachine.printTransactionSummary();
                         break;
 
-                    case 7: // Add case for replenishing change denominations
+                    case 7:
+                        this.vendingMachine.displayAvailableBills();
+                        break;
+
+                    case 8: // Add case for replenishing change denominations
                         System.out.print("Enter denomination to replenish: ");
                         String replenishDenomination = scanner.nextLine();
                         System.out.print("Enter quantity: ");
@@ -145,7 +150,7 @@ public class VendingMachineFactory {
                         this.vendingMachine.replenishChange(replenishDenomination, replenishQuantity);
                         break;
 
-                    case 8: // Update the case number for exit
+                    case 9: // Update the case number for exit
                         System.out.println("Exiting testing.");
                         return;
 
