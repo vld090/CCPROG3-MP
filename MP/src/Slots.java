@@ -55,14 +55,6 @@ public class Slots {
         return item;
     }
 
-    /**
-     * Sets the item in the slot.
-     *
-     * @param item the item to set
-     */
-    public void setItem(Item item) {
-        this.item = item;
-    }
 
     /**
      * Sets the price of the item in the slot.
