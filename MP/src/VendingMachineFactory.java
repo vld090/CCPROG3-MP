@@ -97,6 +97,7 @@ public class VendingMachineFactory {
                         break;
 
                     case 2:
+                        System.out.println("Only Accepts: P20, P50, P100, P200, P500, P1000");
                         System.out.print("Enter denomination: ");
                         String denomination = scanner.nextLine();
                         System.out.print("Enter quantity: ");
@@ -125,14 +126,16 @@ public class VendingMachineFactory {
                             System.out.println("Invalid quantity. Quantity must be non-negative.");
                         }
                         break;
-
                     case 5:
                         System.out.print("Enter slot number: ");
                         int setPriceSlotNumber = scanner.nextInt();
                         System.out.print("Enter price: ");
                         int setPrice = scanner.nextInt();
-                        this.vendingMachine.setPrice(setPriceSlotNumber, setPrice);
-                        break;
+                        if (setPrice >= 0) {
+                            this.vendingMachine.setPrice(setPriceSlotNumber, setPrice);
+                        } else {
+                            System.out.println("Invalid price. Price must be non-negative.");
+                        }
 
                     case 6:
                         this.vendingMachine.printTransactionSummary();
