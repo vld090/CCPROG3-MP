@@ -118,7 +118,11 @@ public class VendingMachineFactory {
                         int restockSlotNumber = scanner.nextInt();
                         System.out.print("Enter quantity: ");
                         int restockQty = scanner.nextInt();
-                        this.vendingMachine.restockItem(restockSlotNumber, restockQty);
+                        if (restockQty >= 0) {
+                            this.vendingMachine.restockItem(restockSlotNumber, restockQty);
+                        } else {
+                            System.out.println("Invalid quantity. Quantity must be non-negative.");
+                        }
                         break;
 
                     case 5:
