@@ -31,6 +31,15 @@ public class PaymentProcess {
     }
 
     /**
+     * Returns the available denominations for change.
+     *
+     * @return the available denominations
+     */
+    public String[] getAvailableDenominations() {
+        return changeDenominations.keySet().toArray(new String[0]);
+    }
+
+    /**
      * Receive payment in a specific denomination and update the balance.
      *
      * @param denomination the denomination of the payment
