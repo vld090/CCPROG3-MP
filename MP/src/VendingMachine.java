@@ -50,23 +50,6 @@ public class VendingMachine {
         paymentProcess.receivePayment(denomination, quantity);
     }
 
-    /**
-     * Produces change for the specified amount.
-     *
-     * @param amount the amount of change to produce
-     */
-    public void produceChange(int amount) {
-        paymentProcess.giveChange(amount);
-    }
-
-    /**
-     * Collects the payment from the vending machine and returns the total amount collected.
-     *
-     * @return the total amount collected
-     */
-    public int collectPayment() {
-        return paymentProcess.collectPayment();
-    }
 
     /**
      * Replenishes the quantity of a specific bill denomination in the vending machine.
@@ -154,7 +137,7 @@ public class VendingMachine {
 
     /**
      * Empties the money from the vending machine, collecting the amount.
-     * The collected amount can be retrieved by calling {@link #collectPayment()}.
+     *
      */
     public void emptyMoney() {
         int collectedAmount = paymentProcess.collectPayment();

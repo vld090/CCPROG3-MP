@@ -85,7 +85,8 @@ public class VendingMachineFactory {
                 System.out.println("6. Print transaction summary");
                 System.out.println("7. Display available bills");
                 System.out.println("8. Replenish change denominations");
-                System.out.println("9. Exit testing");
+                System.out.println("9. Collect Money");
+                System.out.println("10.Exit Testing");
 
                 System.out.print("Enter your choice: ");
                 int choice = scanner.nextInt();
@@ -153,7 +154,11 @@ public class VendingMachineFactory {
                         this.vendingMachine.replenishChange(replenishDenomination, replenishQuantity);
                         break;
 
-                    case 9: // Update the case number for exit
+                    case 9:
+                        this.vendingMachine.emptyMoney();
+                        break;
+
+                    case 10: // Update the case number for exit
                         System.out.println("Exiting testing.");
                         return;
 
