@@ -50,7 +50,7 @@ public class VendingMachineFactory {
      */
     public void createVendingMachine() {
         // put the stuff inside the slots
-        Slots[] slots = new Slots[8];
+        Slots[] slots = new Slots[9];
         slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
         slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
         slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
@@ -59,7 +59,7 @@ public class VendingMachineFactory {
         slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
         slots[6] = new Slots(new Item("Whole wheat Bread", 10), 50, 10);
         slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
-
+        slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
 
