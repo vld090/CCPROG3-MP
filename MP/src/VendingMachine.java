@@ -190,9 +190,6 @@ public class VendingMachine {
         }
     }
 
-    public int collectPayment() {
-        return paymentProcess.collectPayment();
-    }
 
     public PaymentProcess getPaymentProcess() {
         return paymentProcess;
