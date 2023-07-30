@@ -140,7 +140,7 @@ public class VendingMachineFactory {
                         } else {
                             System.out.println("Invalid price. Price must be non-negative.");
                         }
-
+                        break;
                     case 6:
                         this.vendingMachine.printTransactionSummary();
                         break;

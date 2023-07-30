@@ -73,7 +73,6 @@ public class GUI {
                 main.getContentPane().removeAll();
                 main.revalidate();
                 main.repaint();
-                // Components: jlabel, jtextfield, jbutton
                 JLabel label1 = new JLabel("Only Accepts P20, P50, P100, P200, P500, P1000");
                 JLabel label2 = new JLabel("Insert Denomination:");
                 JTextField field1 = new JTextField();
@@ -105,13 +104,20 @@ public class GUI {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //
-                        System.out.println("insert");
-                        JLabel label = new JLabel("money inserted");
-                        label.setBounds(10, 100, 200, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
+                        String denominationInput = field1.getText();
+                        String amountInput = field2.getText();
+
+                        try {
+                            int amount = Integer.parseInt(amountInput);
+                            vendingMachine.receivePayment(denominationInput, amount);
+                            JLabel label = new JLabel("Money inserted");
+                            label.setBounds(10, 130, 200, 25);
+                            label.setVisible(true);
+                            main.add(label);
+                            main.repaint();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid amount. Please enter a valid number.");
+                        }
                     }
                 });
             }
@@ -143,16 +149,21 @@ public class GUI {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("Dispensed");
-                        JLabel label = new JLabel("Item dispensed");
-                        label.setBounds(10, 100, 100, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
+                        String slotNumberInput = field1.getText();
+                        try {
+                            int slotNumber = Integer.parseInt(slotNumberInput);
+                            String message = String.valueOf(vendingMachine.dispenseItem(slotNumber));
+                            JLabel label = new JLabel(message);
+                            label.setBounds(10, 100, 100, 25);
+                            label.setVisible(true);
+                            main.add(label);
+                            main.repaint();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid slot number. Please enter a valid number.");
+                        }
                     }
                 });
             }
-
         });
 
         replenishItem.addActionListener(new ActionListener() {
@@ -161,9 +172,169 @@ public class GUI {
                 main.getContentPane().removeAll();
                 main.revalidate();
                 main.repaint();
-                // Components: jlabel, jtextfield, jbutton
+
                 JLabel label1 = new JLabel("Replenish Item Qty");
                 JLabel label2 = new JLabel("Insert Item Slot Number:");
+                JTextField field1 = new JTextField();
+                JLabel label3 = new JLabel("Insert Amount:");
+                JTextField field2 = new JTextField();
+                JButton button = new JButton("Replenish");
+
+                label1.setBounds(10, 20, 1000, 25);
+                label2.setBounds(10, 50, 1000, 25);
+                label3.setBounds(10, 80, 1000, 25);
+                field1.setBounds(150, 50, 50, 25);
+                field2.setBounds(150, 80, 50, 25);
+                button.setBounds(10, 100, 100, 25);
+
+                main.add(label1);
+                main.add(label2);
+                main.add(field1);
+                main.add(label3);
+                main.add(field2);
+                main.add(button);
+
+                label1.setVisible(true);
+                label2.setVisible(true);
+                label3.setVisible(true);
+                field1.setVisible(true);
+                field2.setVisible(true);
+                button.setVisible(true);
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String slotNumberInput = field1.getText();
+                        String quantityInput = field2.getText();
+                        try {
+                            int slotNumber = Integer.parseInt(slotNumberInput);
+                            int quantity = Integer.parseInt(quantityInput);
+                            String message = vendingMachine.replenishItem(slotNumber, quantity);
+                            JLabel label = new JLabel(message);
+                            label.setBounds(10, 130, 2000, 25);
+                            label.setVisible(true);
+                            main.add(label);
+                            main.repaint();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid input. Please enter valid numbers.");
+                        }
+                    }
+                });
+            }
+        });
+
+        setPrice.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JLabel label1 = new JLabel("Set Pricing of an Item");
+                JLabel label2 = new JLabel("Insert Item Slot Number:");
+                JTextField field1 = new JTextField();
+                JLabel label3 = new JLabel("Insert Price:");
+                JTextField field2 = new JTextField();
+                JButton button = new JButton("Set Price");
+
+                label1.setBounds(10, 20, 1000, 25);
+                label2.setBounds(10, 50, 1000, 25);
+                label3.setBounds(10, 80, 1000, 25);
+                field1.setBounds(150, 50, 50, 25);
+                field2.setBounds(150, 80, 50, 25);
+                button.setBounds(10, 100, 100, 25);
+
+                main.add(label1);
+                main.add(label2);
+                main.add(field1);
+                main.add(label3);
+                main.add(field2);
+                main.add(button);
+
+                label1.setVisible(true);
+                label2.setVisible(true);
+                label3.setVisible(true);
+                field1.setVisible(true);
+                field2.setVisible(true);
+                button.setVisible(true);
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String slotNumberInput = field1.getText();
+                        String priceInput = field2.getText();
+                        try {
+                            int slotNumber = Integer.parseInt(slotNumberInput);
+                            int price = Integer.parseInt(priceInput);
+                            String message = vendingMachine.setItemPrice(slotNumber, price);
+                            JLabel label = new JLabel(message);
+                            label.setBounds(10, 130, 200, 25);
+                            label.setVisible(true);
+                            main.add(label);
+                            main.repaint();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid input. Please enter valid numbers.");
+                        }
+                    }
+                });
+            }
+        });
+
+        summary.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JTextArea itemsArea = new JTextArea();
+                itemsArea.setEditable(false);
+                JScrollPane scrollPane = new JScrollPane(itemsArea);
+
+                itemsArea.setText("Transaction Summary:\n");
+                ArrayList<Transaction> transactionLog = vendingMachine.getTransactionLog();
+                for (Transaction transaction : transactionLog) {
+                    Item item = transaction.getItem();
+                    int payment = transaction.getPayment();
+                    itemsArea.append("Item: " + item.getName() + " - Payment: " + payment + "\n");
+                }
+
+                scrollPane.setBounds(10, 10, 400, 300);
+                main.add(scrollPane);
+                main.revalidate();
+                main.repaint();
+            }
+        });
+
+        displayBills.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JTextArea itemsArea = new JTextArea();
+                itemsArea.setEditable(false);
+                JScrollPane scrollPane = new JScrollPane(itemsArea);
+
+                String availableBillsInfo = vendingMachine.getPaymentProcess().displayAvailableBills();
+                itemsArea.setText(availableBillsInfo);
+
+                scrollPane.setBounds(10, 10, 400, 300);
+                main.add(scrollPane);
+                main.revalidate();
+                main.repaint();
+            }
+        });
+        replenishChange.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JLabel label1 = new JLabel("Replenish Change");
+                JLabel label2 = new JLabel("Insert Denomination:");
                 JTextField field1 = new JTextField();
                 JLabel label3 = new JLabel("Insert Amount:");
                 JTextField field2 = new JTextField();
@@ -193,148 +364,19 @@ public class GUI {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        //
-                        System.out.println("insert");
-                        JLabel label = new JLabel("Item Qty Changed");
-                        label.setBounds(10, 100, 200, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
-                    }
-                });
-            }
-        });
-
-        setPrice.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.getContentPane().removeAll();
-                main.revalidate();
-                main.repaint();
-                // Components: jlabel, jtextfield, jbutton
-                JLabel label1 = new JLabel("Set Pricing of an Item");
-                JLabel label2 = new JLabel("Insert Item Slot Number:");
-                JTextField field1 = new JTextField();
-                JLabel label3 = new JLabel("Insert Price:");
-                JTextField field2 = new JTextField();
-                JButton button = new JButton("Change Price");
-
-                label1.setBounds(10, 20, 1000, 25);
-                label2.setBounds(10, 50, 1000, 25);
-                label3.setBounds(10, 80, 1000, 25);
-                field1.setBounds(180, 50, 50, 25);
-                field2.setBounds(180,80,50,25);
-                button.setBounds(10, 100, 200, 25);
-
-                main.add(label1);
-                main.add(label2);
-                main.add(field1);
-                main.add(label3);
-                main.add(field2);
-                main.add(button);
-
-                label1.setVisible(true);
-                label2.setVisible(true);
-                label3.setVisible(true);
-                field1.setVisible(true);
-                field2.setVisible(true);
-                button.setVisible(true);
-
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        //
-                        System.out.println("insert");
-                        JLabel label = new JLabel("Price Changed");
-                        label.setBounds(10, 100, 200, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
-                    }
-                });
-            }
-        });
-
-        summary.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.getContentPane().removeAll();
-                main.revalidate();
-                main.repaint();
-
-                JTextArea itemsArea = new JTextArea();
-                itemsArea.setEditable(false);
-                JScrollPane scrollPane = new JScrollPane(itemsArea);
-
-                itemsArea.setText("Transaction Summary:\n");
-                ArrayList<Transaction> transactionLog = vendingMachine.getTransactionLog();
-                for (Transaction transaction : transactionLog) {
-                    Item item = transaction.getItem();
-                    int payment = transaction.getPayment();
-                    itemsArea.append("Item: " + item.getName() + " - Payment: " + payment + "\n");
-                }
-
-                scrollPane.setBounds(10, 10, 400, 300);
-                main.add(scrollPane);
-                main.revalidate(); // Call revalidate() to update the layout
-                main.repaint();
-            }
-        });
-
-        displayBills.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.getContentPane().removeAll();
-                main.revalidate();
-                main.repaint();
-            }
-        });
-
-        replenishChange  .addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.getContentPane().removeAll();
-                main.revalidate();
-                main.repaint();
-                // Components: jlabel, jtextfield, jbutton
-                JLabel label1 = new JLabel("Replenish Change");
-                JLabel label2 = new JLabel("Insert Denomination to replenish:");
-                JTextField field1 = new JTextField();
-                JLabel label3 = new JLabel("Insert Amount:");
-                JTextField field2 = new JTextField();
-                JButton button = new JButton("Replenish");
-
-                label1.setBounds(10, 20, 1000, 25);
-                label2.setBounds(10, 50, 1000, 25);
-                label3.setBounds(10, 100, 1000, 25);
-                field1.setBounds(10, 70, 50, 25);
-                field2.setBounds(10,120,50,25);
-                button.setBounds(10, 150, 100, 25);
-
-                main.add(label1);
-                main.add(label2);
-                main.add(field1);
-                main.add(label3);
-                main.add(field2);
-                main.add(button);
-
-                label1.setVisible(true);
-                label2.setVisible(true);
-                label3.setVisible(true);
-                field1.setVisible(true);
-                field2.setVisible(true);
-                button.setVisible(true);
-
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        //
-                        System.out.println("insert");
-                        JLabel label = new JLabel("Change Replenished");
-                        label.setBounds(10, 100, 200, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
+                        String denominationInput = field1.getText();
+                        String quantityInput = field2.getText();
+                        try {
+                            int quantity = Integer.parseInt(quantityInput);
+                            String message = vendingMachine.replenishChange(denominationInput, quantity);
+                            JLabel label = new JLabel(message);
+                            label.setBounds(10, 130, 2000, 25);
+                            label.setVisible(true);
+                            main.add(label);
+                            main.repaint();
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid input. Please enter a valid number.");
+                        }
                     }
                 });
             }
@@ -362,12 +404,8 @@ public class GUI {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        System.out.println("insert");
-                        JLabel label = new JLabel("money emptied");
-                        label.setBounds(10, 100, 200, 25);
-                        label.setVisible(true);
-                        main.add(label);
-                        main.repaint();
+                        vendingMachine.emptyMoney();
+                        JOptionPane.showMessageDialog(main, "Money Collected") ;
                     }
                 });
             }
@@ -383,46 +421,6 @@ public class GUI {
     }
 
 
-//    public void words() {
-//        // Components: jlabel, jtextfield, jbutton
-//
-//        JTextField field1 = new JTextField();
-//        JLabel label3 = new JLabel("Insert :");
-//        JTextField field2 = new JTextField();
-//        JButton button = new JButton("");
-//
-//        label3.setBounds(10, 80, 1000, 25);
-//        field1.setBounds(150, 50, 50, 25);
-//        field2.setBounds(150,80,50,25);
-//        button.setBounds(10, 100, 100, 25);
-//
-//        main.add(label1);
-//        main.add(label2);
-//        main.add(field1);
-//        main.add(label3);
-//        main.add(field2);
-//        main.add(button);
-//
-//        label1.setVisible(true);
-//        label2.setVisible(true);
-//        label3.setVisible(true);
-//        field1.setVisible(true);
-//        field2.setVisible(true);
-//        button.setVisible(true);
-//
-//        button.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                //
-//                System.out.println("insert");
-//                JLabel label = new JLabel("money inserted");
-//                label.setBounds(10, 100, 200, 25);
-//                label.setVisible(true);
-//                main.add(label);
-//                main.repaint();
-//            }
-//        });
-//    }
 
     public static void main(String[] args) {
         VendingMachineFactory vendingMachineFactory = new VendingMachineFactory();

@@ -172,13 +172,15 @@ public class PaymentProcess {
     /**
      * Displays the available bills and their quantities in the vending machine.
      */
-    public void displayAvailableBills() {
-        System.out.println("Available Bills:");
+    public String displayAvailableBills() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Available Bills:\n");
         for (Map.Entry<String, Integer> entry : billDenominations.entrySet()) {
             String denomination = entry.getKey();
             int quantity = entry.getValue();
-            System.out.println(denomination + ": " + quantity);
+            sb.append(denomination).append(": ").append(quantity).append("\n");
         }
+        return sb.toString();
     }
 
 }

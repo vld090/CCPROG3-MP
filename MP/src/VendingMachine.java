@@ -57,9 +57,9 @@ public class VendingMachine {
      * @param denomination the denomination of the bill to replenish
      * @param quantity     the quantity of bills to replenish
      */
-    public void replenishChange(String denomination, int quantity) {
+    public String replenishChange(String denomination, int quantity) {
         paymentProcess.replenishChange(denomination, quantity);
-        System.out.println("Replenished change: " + quantity + " units of " + denomination);
+        return "Replenished change: " + quantity + " units of " + denomination;
     }
 
     /**
@@ -170,4 +170,31 @@ public class VendingMachine {
         return transactionLog;
     }
 
+    public String replenishItem(int slotNumber, int quantity) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setQty(slot.getQty() + quantity);
+            return "Restocked item in slot " + slotNumber + " with quantity " + quantity;
+        } else {
+            return "Invalid slot number";
+        }
+    }
+
+    public String setItemPrice(int slotNumber, int price) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setPrice(price);
+            return "Set price of item in slot " + slotNumber + " to " + price;
+        } else {
+            return "Invalid slot number";
+        }
+    }
+
+    public int collectPayment() {
+        return paymentProcess.collectPayment();
+    }
+
+    public PaymentProcess getPaymentProcess() {
+        return paymentProcess;
+    }
 }
