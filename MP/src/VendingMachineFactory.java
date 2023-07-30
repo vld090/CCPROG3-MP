@@ -47,8 +47,10 @@ public class VendingMachineFactory {
     }
     /**
      * Creates new vending machine
+     *
+     * @return
      */
-    public void createVendingMachine() {
+    public VendingMachine createVendingMachine() {
         // put the stuff inside the slots
         Slots[] slots = new Slots[9];
         slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
@@ -57,7 +59,7 @@ public class VendingMachineFactory {
         slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
         slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
         slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
-        slots[6] = new Slots(new Item("Whole wheat Bread", 10), 50, 10);
+        slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
         slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
         slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
         // Create the payment process
@@ -66,6 +68,7 @@ public class VendingMachineFactory {
         // create the vending machine
         this.vendingMachine = new VendingMachine(slots, paymentProcess);
         System.out.println("New vending machine created successfully.");
+        return vendingMachine;
     }
 
     /**

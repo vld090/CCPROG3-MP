@@ -151,4 +151,23 @@ public class VendingMachine {
     public void displayAvailableBills() {
         paymentProcess.displayAvailableBills();
     }
+
+    /**
+     * Returns the array of slots in the vending machine.
+     *
+     * @return the array of slots
+     */
+    public Slots[] getSlots() {
+        return slots;
+    }
+
+    /**
+     * Returns the transactionLog
+     *
+     * @return the arraylist of transaction logs
+     */
+    public ArrayList<Transaction> getTransactionLog() {
+        return transactionLog;
+    }
+
 }
