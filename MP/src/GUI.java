@@ -17,6 +17,28 @@ public class GUI {
         mainFrame();
     }
 
+    private void prepareSelectedProduct(int slotNumber) {
+        main.getContentPane().removeAll();
+        main.revalidate();
+        main.repaint();
+
+        Item item = vendingMachine.dispenseItem(slotNumber);
+        if (item != null) {
+            String itemName = item.getName();
+            JLabel label = new JLabel("Dispensed: " + itemName);
+            label.setBounds(10, 100, 200, 25);
+            label.setVisible(true);
+            main.add(label);
+        } else {
+            JLabel label = new JLabel("Slot is empty");
+            label.setBounds(10, 100, 200, 25);
+            label.setVisible(true);
+            main.add(label);
+        }
+        main.repaint();
+    }
+    
+
     public void mainFrame() {
         menubar = new JMenuBar();
         menu = new JMenu("Maintenance");
@@ -41,6 +63,49 @@ public class GUI {
         menu.add(displayBills);
         menu.add(replenishChange);
         menu.add(collectMoney);
+
+        // Create a new menu item for special vending machine features
+        JMenuItem specialFeatures = new JMenuItem("Prepare Customizable Product");
+        menu.add(specialFeatures);
+
+        // ActionListener for the specialFeatures menu item
+        specialFeatures.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JLabel label1 = new JLabel("Enter slot number for customizable product:");
+                JTextField field1 = new JTextField();
+                JButton button = new JButton("Prepare Customizable Product");
+
+                label1.setBounds(10, 10, 1000, 25);
+                field1.setBounds(10, 40, 50, 25);
+                button.setBounds(10, 70, 200, 25);
+
+                main.add(label1);
+                main.add(field1);
+                main.add(button);
+
+                label1.setVisible(true);
+                field1.setVisible(true);
+                button.setVisible(true);
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String slotNumberInput = field1.getText();
+                        try {
+                            int slotNumber = Integer.parseInt(slotNumberInput);
+                            prepareSelectedProduct(slotNumber); // Call the prepareSelectedProduct() method
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid slot number. Please enter a valid number.");
+                        }
+                    }
+                });
+            }
+        });
 
         display.addActionListener(new ActionListener() {
             @Override
@@ -67,6 +132,45 @@ public class GUI {
                 main.repaint();
             }
         });
+
+        select.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                main.getContentPane().removeAll();
+                main.revalidate();
+                main.repaint();
+
+                JLabel label1 = new JLabel("Input Slot Number to Dispense:");
+                JTextField field1 = new JTextField();
+                JButton button = new JButton("Dispense");
+
+                label1.setBounds(10, 10, 1000, 25);
+                field1.setBounds(10, 30, 50, 25);
+                button.setBounds(10, 60, 100, 25);
+
+                main.add(label1);
+                main.add(field1);
+                main.add(button);
+
+                label1.setVisible(true);
+                field1.setVisible(true);
+                button.setVisible(true);
+
+                button.addActionListener(new ActionListener() {
+                    @Override
+                    public void actionPerformed(ActionEvent e) {
+                        String slotNumberInput = field1.getText();
+                        try {
+                            int slotNumber = Integer.parseInt(slotNumberInput);
+                            prepareSelectedProduct(slotNumber); // Call the prepareSelectedProduct() method
+                        } catch (NumberFormatException ex) {
+                            JOptionPane.showMessageDialog(main, "Invalid slot number. Please enter a valid number.");
+                        }
+                    }
+                });
+            }
+        });
+
         insertMoney.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -429,4 +533,3 @@ public class GUI {
     }
 
 }
-
