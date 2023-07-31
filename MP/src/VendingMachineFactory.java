@@ -18,11 +18,12 @@ public class VendingMachineFactory {
         Scanner scanner = new Scanner(System.in);
 
         int choice = 0;
-        while (choice != 3) {
+        while (choice != 4) {
             System.out.println("----- Vending Machine Factory Menu -----");
             System.out.println("1. Create new vending machine");
             System.out.println("2. Test vending machine");
-            System.out.println("3. Exit program");
+            System.out.println("3. Test special vending machine features");
+            System.out.println("4. Exit program");
             System.out.print("Enter your choice: ");
             choice = scanner.nextInt();
             scanner.nextLine();
@@ -35,6 +36,9 @@ public class VendingMachineFactory {
                     testVendingMachine();
                     break;
                 case 3:
+                    testSpecialVendingMachine();
+                    break;
+                case 4:
                     exitProgram();
                     break;
                 default:
@@ -45,6 +49,7 @@ public class VendingMachineFactory {
 
         scanner.close();
     }
+
     /**
      * Creates new vending machine
      *
@@ -62,6 +67,32 @@ public class VendingMachineFactory {
         slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
         slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
         slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
+        // Create the payment process
+        PaymentProcess paymentProcess = new PaymentProcess(0);
+
+        // create the vending machine
+        this.vendingMachine = new VendingMachine(slots, paymentProcess);
+        System.out.println("New vending machine created successfully.");
+        return vendingMachine;
+    }
+
+     /**
+     * Creates a new special vending machine.
+     */
+    public VendingMachine createSpecialVendingMachine() {
+        // put the stuff inside the slots
+        Slots[] slots = new Slots[10];
+        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
+        slots[1] = new Slots(new Item("Ham              ", 45), 50, 10);
+        slots[2] = new Slots(new Item("Customizable     ", 100), 50, 10); // Special slot for customizable product
+        slots[3] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
+        slots[4] = new Slots(new Item("Lettuce          ", 10), 20, 10);
+        slots[5] = new Slots(new Item("Tomato           ", 10), 20, 10);
+        slots[6] = new Slots(new Item("Egg              ", 20), 20, 10);
+        slots[7] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
+        slots[8] = new Slots(new Item("White Bread      ", 30), 50, 10);
+        slots[9] = new Slots(new Item("Skip             ", 0), 0, 10);
+
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
 
@@ -173,6 +204,11 @@ public class VendingMachineFactory {
         } else {
             System.out.println("No vending machine created yet.");
         }
+    }
+    
+    public void testSpecialVendingMachine() {
+        this.vendingMachine = createSpecialVendingMachine();
+        GUI gui = new GUI(vendingMachine);
     }
     
     /**
