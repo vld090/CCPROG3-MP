@@ -8,7 +8,7 @@ public class VendingMachine {
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
 
-      /**
+    /**
      * Constructs a VendingMachine object with the specified slots and payment process.
      *
      * @param slots          the array of slots containing items
