@@ -1,220 +1,197 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+
 /**
- * Factory class for creating and testing vending machines.
+ * Represents a vending machine that holds slots of items and handles transactions.
  */
-public class VendingMachineFactory {
-    private VendingMachine vendingMachine;
+public class VendingMachine {
+    private Slots[] slots;
+    private ArrayList<Transaction> transactionLog;
+    private PaymentProcess paymentProcess;
+
     /**
-     * Constructs a VendingMachineFactory object.
+     * Constructs a VendingMachine object with the specified slots and payment process.
+     *
+     * @param slots          the array of slots containing items
+     * @param paymentProcess the payment process for handling transactions
      */
-    public VendingMachineFactory() {
-        this.vendingMachine = null;
+    public VendingMachine(Slots[] slots, PaymentProcess paymentProcess) {
+        this.slots = slots;
+        this.paymentProcess = paymentProcess;
+        this.transactionLog = new ArrayList<>();
     }
 
     /**
-     * Starts the vending machine factory menu.
+     * Displays the available items in the vending machine.
      */
-    public void start() {
-        Scanner scanner = new Scanner(System.in);
-
-        int choice = 0;
-        while (choice != 4) {
-            System.out.println("----- Vending Machine Factory Menu -----");
-            System.out.println("1. Create new vending machine");
-            System.out.println("2. Test vending machine");
-            System.out.println("3. Test special vending machine features");
-            System.out.println("4. Exit program");
-            System.out.print("Enter your choice: ");
-            choice = scanner.nextInt();
-            scanner.nextLine();
-
-            switch (choice) {
-                case 1:
-                    createVendingMachine();
-                    break;
-                case 2:
-                    testVendingMachine();
-                    break;
-                case 3:
-                    testSpecialVendingMachine();
-                    break;
-                case 4:
-                    exitProgram();
-                    break;
-                default:
-                    System.out.println("Invalid choice. Please try again.");
-                    break;
+    public void displayItems() {
+        System.out.println("Available items:");
+        for (int i = 0; i < slots.length; i++) {
+            Slots slot = slots[i];
+            Item item = slot.getItem();
+            if (item != null) {
+                System.out.print("Slot " + i + ": ");
+                System.out.print(item.getName() + " - ");
+                System.out.print("Price: " + slot.getPrice() + " - ");
+                System.out.print("Quantity: " + slot.getQty() + " - ");
+                System.out.println("Calories: " + item.getCalories());
+            } else {
+                System.out.println("Slot " + i + ": Empty");
             }
         }
-
-        scanner.close();
     }
 
     /**
-     * Creates new vending machine
+     * Receives payment in the specified denomination and quantity.
      *
-     * @return
+     * @param denomination the denomination of the payment
+     * @param quantity     the quantity of the payment
      */
-    public VendingMachine createVendingMachine() {
-        // put the stuff inside the slots
-        Slots[] slots = new Slots[9];
-        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
-        slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
-        slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
-        slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
-        slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
-        slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
-        slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
-        slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
-        slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
-        // Create the payment process
-        PaymentProcess paymentProcess = new PaymentProcess(0);
-
-        // create the vending machine
-        this.vendingMachine = new VendingMachine(slots, paymentProcess);
-        System.out.println("New vending machine created successfully.");
-        return vendingMachine;
+    public void receivePayment(String denomination, int quantity) {
+        paymentProcess.receivePayment(denomination, quantity);
     }
 
-     /**
-     * Creates a new special vending machine.
+
+    /**
+     * Replenishes the quantity of a specific bill denomination in the vending machine.
+     *
+     * @param denomination the denomination of the bill to replenish
+     * @param quantity     the quantity of bills to replenish
      */
-    public VendingMachine createSpecialVendingMachine() {
-        // put the stuff inside the slots
-        Slots[] slots = new Slots[9];
-        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
-        slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
-        slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
-        slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
-        slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
-        slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
-        slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
-        slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
-        slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
-
-        // Create the payment process
-        PaymentProcess paymentProcess = new PaymentProcess(0);
-
-        // create the vending machine
-        this.vendingMachine = new VendingMachine(slots, paymentProcess);
-        System.out.println("New vending machine created successfully.");
-        return vendingMachine;
+    public String replenishChange(String denomination, int quantity) {
+        paymentProcess.replenishChange(denomination, quantity);
+        return "Replenished change: " + quantity + " units of " + denomination;
     }
 
     /**
-     * Tests the vending machine.
+     * Dispenses an item from the specified slot number.
+     *
+     * @param slotNumber the slot number of the item to dispense
+     * @return the dispensed item, or null if the slot is empty or the payment is insufficient
      */
-    public void testVendingMachine() {
-        if (this.vendingMachine != null) {
-            Scanner scanner = new Scanner(System.in);
-
-            while (true) {
-                System.out.println("----- Vending Machine Testing Menu -----");
-                System.out.println("1. Display available items");
-                System.out.println("2. Insert payment");
-                System.out.println("3. Select slot and dispense item");
-                System.out.println("4. Replenish item quantity");
-                System.out.println("5. Set item price");
-                System.out.println("6. Print transaction summary");
-                System.out.println("7. Display available bills");
-                System.out.println("8. Replenish change denominations");
-                System.out.println("9. Collect Money");
-                System.out.println("10.Exit Testing");
-
-                System.out.print("Enter your choice: ");
-                int choice = scanner.nextInt();
-                scanner.nextLine(); // Consume newline character
-
-                switch (choice) {
-                    case 1:
-                        this.vendingMachine.displayItems();
-                        break;
-
-                    case 2:
-                        System.out.println("Only Accepts: P20, P50, P100, P200, P500, P1000");
-                        System.out.print("Enter denomination: ");
-                        String denomination = scanner.nextLine();
-                        System.out.print("Enter quantity: ");
-                        int quantity = scanner.nextInt();
-                        this.vendingMachine.receivePayment(denomination, quantity);
-                        break;
-
-                    case 3:
-                        System.out.print("Enter slot number: ");
-                        int slotNumber = scanner.nextInt();
-                        scanner.nextLine(); // Consume newline character
-                        Item item = this.vendingMachine.dispenseItem(slotNumber);
-                        if (item != null) {
-                            System.out.println("Dispensed item: " + item.getName());
-                        }
-                        break;
-
-                    case 4:
-                        System.out.print("Enter slot number: ");
-                        int restockSlotNumber = scanner.nextInt();
-                        System.out.print("Enter quantity: ");
-                        int restockQty = scanner.nextInt();
-                        if (restockQty >= 0) {
-                            this.vendingMachine.restockItem(restockSlotNumber, restockQty);
-                        } else {
-                            System.out.println("Invalid quantity. Quantity must be non-negative.");
-                        }
-                        break;
-                    case 5:
-                        System.out.print("Enter slot number: ");
-                        int setPriceSlotNumber = scanner.nextInt();
-                        System.out.print("Enter price: ");
-                        int setPrice = scanner.nextInt();
-                        if (setPrice >= 0) {
-                            this.vendingMachine.setPrice(setPriceSlotNumber, setPrice);
-                        } else {
-                            System.out.println("Invalid price. Price must be non-negative.");
-                        }
-                        break;
-                    case 6:
-                        this.vendingMachine.printTransactionSummary();
-                        break;
-
-                    case 7:
-                        this.vendingMachine.displayAvailableBills();
-                        break;
-
-                    case 8: // Add case for replenishing change denominations
-                        System.out.print("Enter denomination to replenish: ");
-                        String replenishDenomination = scanner.nextLine();
-                        System.out.print("Enter quantity: ");
-                        int replenishQuantity = scanner.nextInt();
-                        this.vendingMachine.replenishChange(replenishDenomination, replenishQuantity);
-                        break;
-
-                    case 9:
-                        this.vendingMachine.emptyMoney();
-                        break;
-
-                    case 10: // Update the case number for exit
-                        System.out.println("Exiting testing.");
-                        return;
-
-                    default:
-                        System.out.println("Invalid choice. Please try again.");
-                        break;
+    public Item dispenseItem(int slotNumber) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            if (slot.getAvailability()) {
+                if (paymentProcess.getBalance() >= slot.getPrice()) {
+                    slot.setQty(slot.getQty() - 1);
+                    Item item = slot.getItem();
+                    paymentProcess.giveChange(paymentProcess.getBalance() - slot.getPrice());
+                    int collect = paymentProcess.collectPayment();
+                    System.out.println("Collected payment of: " + collect);
+                    transactionLog.add(new Transaction(item, slot.getPrice()));
+                    return item;
+                } else {
+                    System.out.println("Insufficient payment. Please insert more money.");
                 }
+            } else {
+                System.out.println("Item not available in slot " + slotNumber);
             }
         } else {
-            System.out.println("No vending machine created yet.");
+            System.out.println("Invalid slot number");
+        }
+        return null;
+    }
+
+    /**
+     * Restocks the item quantity in the specified slot.
+     *
+     * @param slotNumber the slot number to restock
+     * @param qty        the quantity to add to the slot
+     */
+    public void restockItem(int slotNumber, int qty) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setQty(qty);
+            System.out.println("Restocked item in slot " + slotNumber + " with quantity " + qty);
+        } else {
+            System.out.println("Invalid slot number");
         }
     }
-    
-    public void testSpecialVendingMachine() {
-        this.vendingMachine = createSpecialVendingMachine();
-        GUI gui = new GUI(vendingMachine);
+
+    /**
+     * Sets the price of the item in the specified slot.
+     *
+     * @param slotNumber the slot number to set the price
+     * @param price      the price to set for the item
+     */
+    public void setPrice(int slotNumber, int price) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setPrice(price);
+            System.out.println("Set price of item in slot " + slotNumber + " to " + price);
+        } else {
+            System.out.println("Invalid slot number");
+        }
+    }
+
+    /**
+     * Prints the transaction summary.
+     */
+    public void printTransactionSummary() {
+        System.out.println("Transaction Summary:");
+        for (Transaction transaction : transactionLog) {
+            Item item = transaction.getItem();
+            int payment = transaction.getPayment();
+            System.out.println("Item: " + item.getName() + " - Payment: " + payment);
+        }
+    }
+
+    /**
+     * Empties the money from the vending machine, collecting the amount.
+     *
+     */
+    public void emptyMoney() {
+        paymentProcess.collectPayment();
+        paymentProcess.ZeroBillDenominations();
     }
     
     /**
-     * Exit the Program
+     * Displays the available bills and their quantities in the vending machine.
      */
-    public void exitProgram() {
-        System.out.println("Exiting program.");
-        System.exit(0);
+    public void displayAvailableBills() {
+        paymentProcess.displayAvailableBills();
+    }
+
+    /**
+     * Returns the array of slots in the vending machine.
+     *
+     * @return the array of slots
+     */
+    public Slots[] getSlots() {
+        return slots;
+    }
+
+    /**
+     * Returns the transactionLog
+     *
+     * @return the arraylist of transaction logs
+     */
+    public ArrayList<Transaction> getTransactionLog() {
+        return transactionLog;
+    }
+
+    public String replenishItem(int slotNumber, int quantity) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setQty(slot.getQty() + quantity);
+            return "Restocked item in slot " + slotNumber + " with quantity " + quantity;
+        } else {
+            return "Invalid slot number";
+        }
+    }
+
+    public String setItemPrice(int slotNumber, int price) {
+        if (slotNumber >= 0 && slotNumber < slots.length) {
+            Slots slot = slots[slotNumber];
+            slot.setPrice(price);
+            return "Set price of item in slot " + slotNumber + " to " + price;
+        } else {
+            return "Invalid slot number";
+        }
+    }
+
+
+    public PaymentProcess getPaymentProcess() {
+        return paymentProcess;
     }
 }
