@@ -4,6 +4,8 @@ import java.util.Scanner;
  */
 public class VendingMachineFactory {
     private VendingMachine vendingMachine;
+    private SpecialVendingMachine SpecialVendingMachine;
+
     /**
      * Constructs a VendingMachineFactory object.
      */
@@ -58,7 +60,7 @@ public class VendingMachineFactory {
     public VendingMachine createVendingMachine() {
         // put the stuff inside the slots
         Slots[] slots = new Slots[9];
-        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
+        slots[0] = new Slots(new Item("Hot dog           ", 35), 50, 10);
         slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
         slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
         slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
@@ -76,30 +78,33 @@ public class VendingMachineFactory {
         return vendingMachine;
     }
 
-     /**
+    /**
      * Creates a new special vending machine.
      */
-    public VendingMachine createSpecialVendingMachine() {
+    public SpecialVendingMachine createSpecialVendingMachine() {
         // put the stuff inside the slots
-        Slots[] slots = new Slots[10];
-        slots[0] = new Slots(new Item("Hotdog           ", 35), 50, 10);
-        slots[1] = new Slots(new Item("Ham              ", 45), 50, 10);
-        slots[2] = new Slots(new Item("Customizable     ", 100), 50, 10); // Special slot for customizable product
-        slots[3] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
-        slots[4] = new Slots(new Item("Lettuce          ", 10), 20, 10);
-        slots[5] = new Slots(new Item("Tomato           ", 10), 20, 10);
-        slots[6] = new Slots(new Item("Egg              ", 20), 20, 10);
-        slots[7] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
-        slots[8] = new Slots(new Item("White Bread      ", 30), 50, 10);
-        slots[9] = new Slots(new Item("Skip             ", 0), 0, 10);
-
+        Slots[] slots = new Slots[13];
+        slots[0] = new Slots(new Item("Hot dog           ", 35), 50, 10);
+        slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
+        slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
+        slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
+        slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
+        slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
+        slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
+        slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
+        slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);
+        slots[9] = new Slots(new Item("Healthy Hot dog Sandwich", 50), 100, 10);
+        slots[10] = new Slots(new Item("Healthy Ham Sandwich",    50), 100, 10);
+        slots[11] = new Slots(new Item("Healthy Beef  Sandwich", 50), 100, 10);
+        slots[12] = new Slots(new Item("Vegetarian Sandwich",    100), 100, 10);
+        // TODO
         // Create the payment process
         PaymentProcess paymentProcess = new PaymentProcess(0);
 
         // create the vending machine
-        this.vendingMachine = new VendingMachine(slots, paymentProcess);
+        this.SpecialVendingMachine = new SpecialVendingMachine(slots, paymentProcess);
         System.out.println("New vending machine created successfully.");
-        return vendingMachine;
+        return SpecialVendingMachine;
     }
 
     /**
@@ -205,12 +210,12 @@ public class VendingMachineFactory {
             System.out.println("No vending machine created yet.");
         }
     }
-    
+
     public void testSpecialVendingMachine() {
-        this.vendingMachine = createSpecialVendingMachine();
-        GUI gui = new GUI(vendingMachine);
+        this.SpecialVendingMachine = createSpecialVendingMachine();
+        GUI gui = new GUI(SpecialVendingMachine);
     }
-    
+
     /**
      * Exit the Program
      */

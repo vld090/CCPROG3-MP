@@ -1,5 +1,4 @@
-import java.util.HashMap;
-import java.util.Map;
+import javax.swing.JOptionPane;
 
 /**
  * Represents a special vending machine that holds slots of items and handles transactions.
@@ -18,33 +17,42 @@ public class SpecialVendingMachine extends VendingMachine {
     }
 
     /**
-     * Prepares a selected product based on the choices of items that the user wants.
-     * The amount of calories for the final product is the combination of the calorie count
-     * of each chosen item to include (which might involve more than just addition).
-     * The preparation process will be displayed step by step.
+     * Displays the steps for preparing the selected product based on the choices of items that the user wants.
      *
-     * @param productChoices a map containing the slot numbers and quantities of chosen items for the product
+     * @param slotNumber the slot number of the selected product
      */
-    public void prepareProduct(Map<Integer, Integer> productChoices) {
-        System.out.println("Preparing the selected product...");
-        int totalCalories = 0;
+    public void showSteps(int slotNumber) {
+        StringBuilder steps = new StringBuilder();
 
-        for (Map.Entry<Integer, Integer> entry : productChoices.entrySet()) {
-            int slotNumber = entry.getKey();
-            int quantity = entry.getValue();
-
-            if (slotNumber >= 0 && slotNumber < getSlots().length) {
-                Slots slot = getSlots()[slotNumber];
-                Item item = slot.getItem();
-                if (item != null) {
-                    System.out.println("Adding " + quantity + " unit(s) of " + item.getName() + " to the product.");
-                    totalCalories += item.getCalories() * quantity;
-                }
-            }
+        if (slotNumber == 9) {
+            steps.append("Get hotdog\n");
+            steps.append("Put in whole wheat bread\n");
+            steps.append("Add lettuce\n");
+            steps.append("Add tomato");
+        } else if (slotNumber == 10) {
+            steps.append("Get ham\n");
+            steps.append("Put in whole wheat bread\n");
+            steps.append("Add lettuce\n");
+            steps.append("Add tomato");
+        } else if (slotNumber == 11) {
+            steps.append("Get beef\n");
+            steps.append("Put in whole wheat bread\n");
+            steps.append("Add lettuce\n");
+            steps.append("Add tomato");
+        } else if (slotNumber == 12) {
+            steps.append("Put in whole wheat bread\n");
+            steps.append("Add lettuce\n");
+            steps.append("Add tomato");
+        } else {
+            // For other slots, no specific steps
+            steps.append("No specific steps for this item.");
         }
 
-        System.out.println("Total calories of the product: " + totalCalories);
-        System.out.println("Product preparation completed.");
+        // Show the steps in a message dialog
+        JOptionPane.showMessageDialog(null, steps.toString(), "Preparation Steps", JOptionPane.INFORMATION_MESSAGE);
     }
+
+
+
 
 }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
  * Represents a vending machine that holds slots of items and handles transactions.
  */
 public class VendingMachine {
-    private Slots[] slots;
+    private static Slots[] slots;
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
 
@@ -72,13 +72,85 @@ public class VendingMachine {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
             if (slot.getAvailability()) {
-                if (paymentProcess.getBalance() >= slot.getPrice()) {
+                int price = slot.getPrice();
+
+                int hotDogSlotNumber = 0;
+                int hamSlotNumber = 1;
+                int beefSlotNumber = 2;
+                int breadSlotNumber = 6;
+                int lettuceSlotNumber = 3;
+                int tomatoSlotNumber = 4;
+
+                Slots hotDogSlot = slots[hotDogSlotNumber];
+                Slots hamSlot = slots[hamSlotNumber];
+                Slots beefSlot = slots[beefSlotNumber];
+                Slots breadSlot = slots[breadSlotNumber];
+                Slots lettuceSlot = slots[lettuceSlotNumber];
+                Slots tomatoSlot = slots[tomatoSlotNumber];
+
+                if (slotNumber == 9) { // Healthy Hotdog Sandwich
+                    if (hotDogSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                        hotDogSlot.setQty(hotDogSlot.getQty() - 1);
+                        breadSlot.setQty(breadSlot.getQty() - 1);
+                        lettuceSlot.setQty(lettuceSlot.getQty() - 1);
+                        tomatoSlot.setQty(tomatoSlot.getQty() - 1);
+                        slot.setQty(slot.getQty() - 1);
+                    } else {
+                        System.out.println("Insufficient quantity of associated items. Please restock the associated items.");
+                        return null;
+                    }
+                } else if (slotNumber == 10) { // Healthy Ham Sandwich
+                    if (hamSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                        hamSlot.setQty(hamSlot.getQty() - 1);
+                        breadSlot.setQty(breadSlot.getQty() - 1);
+                        lettuceSlot.setQty(lettuceSlot.getQty() - 1);
+                        tomatoSlot.setQty(tomatoSlot.getQty() - 1);
+                        slot.setQty(slot.getQty() - 1);
+                    } else {
+                        System.out.println("Insufficient quantity of associated items. Please restock the associated items.");
+                        return null;
+                    }
+                } else if (slotNumber == 11) { // Healthy Beef Sandwich
+                    if (beefSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                        beefSlot.setQty(beefSlot.getQty() - 1);
+                        breadSlot.setQty(breadSlot.getQty() - 1);
+                        lettuceSlot.setQty(lettuceSlot.getQty() - 1);
+                        tomatoSlot.setQty(tomatoSlot.getQty() - 1);
+                        slot.setQty(slot.getQty() - 1);
+                    } else {
+                        System.out.println("Insufficient quantity of associated items. Please restock the associated items.");
+                        return null;
+                    }
+                } else if (slotNumber == 12) { // Vegetarian Sandwich
+                    if (breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                        breadSlot.setQty(breadSlot.getQty() - 1);
+                        lettuceSlot.setQty(lettuceSlot.getQty() - 1);
+                        tomatoSlot.setQty(tomatoSlot.getQty() - 1);
+                        slot.setQty(slot.getQty() - 1);
+                    } else {
+                        System.out.println("Insufficient quantity of associated items. Please restock the associated items.");
+                        return null;
+                    }
+                } else {
+                    // For regular slots, just check the quantity of the selected item
+                    if (slot.getQty() < 1) {
+                        System.out.println("Insufficient quantity. Please select a lower quantity.");
+                        return null;
+                    }
                     slot.setQty(slot.getQty() - 1);
+                }
+
+                if (paymentProcess.getBalance() >= price) {
                     Item item = slot.getItem();
-                    paymentProcess.giveChange(paymentProcess.getBalance() - slot.getPrice());
+                    paymentProcess.giveChange(paymentProcess.getBalance() - price);
                     int collect = paymentProcess.collectPayment();
                     System.out.println("Collected payment of: " + collect);
-                    transactionLog.add(new Transaction(item, slot.getPrice()));
+                    transactionLog.add(new Transaction(item, price));
+
                     return item;
                 } else {
                     System.out.println("Insufficient payment. Please insert more money.");
@@ -144,7 +216,7 @@ public class VendingMachine {
         paymentProcess.collectPayment();
         paymentProcess.ZeroBillDenominations();
     }
-    
+
     /**
      * Displays the available bills and their quantities in the vending machine.
      */
@@ -157,7 +229,7 @@ public class VendingMachine {
      *
      * @return the array of slots
      */
-    public Slots[] getSlots() {
+    public static Slots[] getSlots() {
         return slots;
     }
 

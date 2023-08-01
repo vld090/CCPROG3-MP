@@ -5,55 +5,18 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI {
-    private VendingMachine vendingMachine;
+    private SpecialVendingMachine SpecialVendingMachine;
     private JMenuBar menubar;
     private JMenu menu;
     private JMenuItem display, collectMoney, insertMoney, select, replenishChange, setPrice, summary, displayBills, replenishItem;
 
     JFrame main = new JFrame("Vending Machine");
 
-    public GUI(VendingMachine vendingMachine) {
-        this.vendingMachine = vendingMachine;
+    public GUI(SpecialVendingMachine SpecialVendingMachine) {
+        this.SpecialVendingMachine = SpecialVendingMachine;
         mainFrame();
     }
 
-    private void prepareSelectedProduct(int slotNumber) {
-        main.getContentPane().removeAll();
-        main.revalidate();
-        main.repaint();
-
-        Item item = vendingMachine.dispenseItem(slotNumber);
-        if (item != null) {
-            String itemName = item.getName();
-            JLabel label = new JLabel("Dispensed: " + itemName);
-            label.setBounds(10, 100, 200, 25);
-            label.setVisible(true);
-            main.add(label);
-        } else {
-            JLabel label = new JLabel("Slot is empty");
-            label.setBounds(10, 100, 200, 25);
-            label.setVisible(true);
-            main.add(label);
-        }
-        main.repaint();
-    }
-
-    private void prepareCustomizableProduct(int slotNumber) {
-        main.getContentPane().removeAll();
-        main.revalidate();
-        main.repaint();
-
-        // Implement the logic to prepare a customizable product here.
-        // You can use the vendingMachine object to access the special vending machine.
-
-        // For example, you could display a message like this:
-        JLabel label = new JLabel("Preparing customizable product from slot " + slotNumber);
-        label.setBounds(10, 100, 300, 25);
-        label.setVisible(true);
-        main.add(label);
-
-        main.repaint();
-    }
 
     public void mainFrame() {
         menubar = new JMenuBar();
@@ -80,48 +43,7 @@ public class GUI {
         menu.add(replenishChange);
         menu.add(collectMoney);
 
-        // Create a new menu item for special vending machine features
-        JMenuItem specialFeatures = new JMenuItem("Prepare Customizable Product");
-        menu.add(specialFeatures);
 
-        // ActionListener for the specialFeatures menu item
-        specialFeatures.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                main.getContentPane().removeAll();
-                main.revalidate();
-                main.repaint();
-
-                JLabel label1 = new JLabel("Enter slot number for customizable product:");
-                JTextField field1 = new JTextField();
-                JButton button = new JButton("Prepare Customizable Product");
-
-                label1.setBounds(10, 10, 1000, 25);
-                field1.setBounds(10, 40, 50, 25);
-                button.setBounds(10, 70, 200, 25);
-
-                main.add(label1);
-                main.add(field1);
-                main.add(button);
-
-                label1.setVisible(true);
-                field1.setVisible(true);
-                button.setVisible(true);
-
-                button.addActionListener(new ActionListener() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        String slotNumberInput = field1.getText();
-                        try {
-                            int slotNumber = Integer.parseInt(slotNumberInput);
-                            prepareCustomizableProduct(slotNumber); // Call the prepareCustomizableProduct() method
-                        } catch (NumberFormatException ex) {
-                            JOptionPane.showMessageDialog(main, "Invalid slot number. Please enter a valid number.");
-                        }
-                    }
-                });
-            }
-        });
 
         display.addActionListener(new ActionListener() {
             @Override
@@ -132,8 +54,8 @@ public class GUI {
                 JScrollPane scrollPane = new JScrollPane(itemsArea);
 
                 itemsArea.setText("Available items:\n");
-                for (int i = 0; i < vendingMachine.getSlots().length; i++) {
-                    Slots slot = vendingMachine.getSlots()[i];
+                for (int i = 0; i < SpecialVendingMachine.getSlots().length; i++) {
+                    Slots slot = SpecialVendingMachine.getSlots()[i];
                     Item item = slot.getItem();
                     if (item != null) {
                         itemsArea.append("Slot " + i + ": " + item.getName() + " - Price: " + slot.getPrice() + " - Quantity: " + slot.getQty() + " - Calories: " + item.getCalories() + "\n");
@@ -191,7 +113,7 @@ public class GUI {
 
                         try {
                             int amount = Integer.parseInt(amountInput);
-                            vendingMachine.receivePayment(denominationInput, amount);
+                            SpecialVendingMachine.receivePayment(denominationInput, amount);
                             JLabel label = new JLabel("Money inserted");
                             label.setBounds(10, 130, 200, 25);
                             label.setVisible(true);
@@ -234,12 +156,17 @@ public class GUI {
                         String slotNumberInput = field1.getText();
                         try {
                             int slotNumber = Integer.parseInt(slotNumberInput);
-                            String message = String.valueOf(vendingMachine.dispenseItem(slotNumber));
+                            String message = String.valueOf(SpecialVendingMachine.dispenseItem(slotNumber));
                             JLabel label = new JLabel(message);
                             label.setBounds(10, 100, 100, 25);
                             label.setVisible(true);
                             main.add(label);
                             main.repaint();
+
+                            if (slotNumber >= 9 && slotNumber <= 12) {
+                                SpecialVendingMachine.showSteps(slotNumber); // Call the showSteps() method to display preparation steps
+                            }
+
                         } catch (NumberFormatException ex) {
                             JOptionPane.showMessageDialog(main, "Invalid slot number. Please enter a valid number.");
                         }
@@ -291,7 +218,7 @@ public class GUI {
                         try {
                             int slotNumber = Integer.parseInt(slotNumberInput);
                             int quantity = Integer.parseInt(quantityInput);
-                            String message = vendingMachine.replenishItem(slotNumber, quantity);
+                            String message = SpecialVendingMachine.replenishItem(slotNumber, quantity);
                             JLabel label = new JLabel(message);
                             label.setBounds(10, 130, 2000, 25);
                             label.setVisible(true);
@@ -348,7 +275,7 @@ public class GUI {
                         try {
                             int slotNumber = Integer.parseInt(slotNumberInput);
                             int price = Integer.parseInt(priceInput);
-                            String message = vendingMachine.setItemPrice(slotNumber, price);
+                            String message = SpecialVendingMachine.setItemPrice(slotNumber, price);
                             JLabel label = new JLabel(message);
                             label.setBounds(10, 130, 200, 25);
                             label.setVisible(true);
@@ -374,7 +301,7 @@ public class GUI {
                 JScrollPane scrollPane = new JScrollPane(itemsArea);
 
                 itemsArea.setText("Transaction Summary:\n");
-                ArrayList<Transaction> transactionLog = vendingMachine.getTransactionLog();
+                ArrayList<Transaction> transactionLog = SpecialVendingMachine.getTransactionLog();
                 for (Transaction transaction : transactionLog) {
                     Item item = transaction.getItem();
                     int payment = transaction.getPayment();
@@ -399,7 +326,7 @@ public class GUI {
                 itemsArea.setEditable(false);
                 JScrollPane scrollPane = new JScrollPane(itemsArea);
 
-                String availableBillsInfo = vendingMachine.getPaymentProcess().displayAvailableBills();
+                String availableBillsInfo = SpecialVendingMachine.getPaymentProcess().displayAvailableBills();
                 itemsArea.setText(availableBillsInfo);
 
                 scrollPane.setBounds(10, 10, 400, 300);
@@ -450,7 +377,7 @@ public class GUI {
                         String quantityInput = field2.getText();
                         try {
                             int quantity = Integer.parseInt(quantityInput);
-                            String message = vendingMachine.replenishChange(denominationInput, quantity);
+                            String message = SpecialVendingMachine.replenishChange(denominationInput, quantity);
                             JLabel label = new JLabel(message);
                             label.setBounds(10, 130, 2000, 25);
                             label.setVisible(true);
@@ -486,7 +413,7 @@ public class GUI {
                 button.addActionListener(new ActionListener() {
                     @Override
                     public void actionPerformed(ActionEvent e) {
-                        vendingMachine.emptyMoney();
+                        SpecialVendingMachine.emptyMoney();
                         JOptionPane.showMessageDialog(main, "Money Collected") ;
                     }
                 });
@@ -503,8 +430,8 @@ public class GUI {
     }
 
     public static void main(String[] args) {
-        VendingMachineFactory vendingMachineFactory = new VendingMachineFactory();
-        VendingMachine vendingMachine = vendingMachineFactory.createVendingMachine();
-        GUI g = new GUI(vendingMachine);
+        VendingMachineFactory VendingMachineFactory = new VendingMachineFactory();
+        SpecialVendingMachine specialVendingMachine = VendingMachineFactory.createSpecialVendingMachine();
+        GUI g = new GUI(specialVendingMachine);
     }
 }
