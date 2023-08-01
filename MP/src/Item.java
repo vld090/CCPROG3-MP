@@ -1,5 +1,7 @@
+import java.util.List;
+
 /**
- * Represents an item in a vending machine.
+ * Represents an item that can be stored in the vending machine.
  */
 public class Item {
     private String name;
@@ -11,7 +13,7 @@ public class Item {
      * @param name     the name of the item
      * @param calories the calorie count of the item
      */
-    public Item(String name, int calories){
+    public Item(String name, int calories) {
         this.name = name;
         this.calories = calories;
     }
