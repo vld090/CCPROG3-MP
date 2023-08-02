@@ -96,9 +96,9 @@ public class VendingMachine {
                     return null;
                 }
 
-
                 if (slotNumber == 9) { // Healthy Hotdog Sandwich
-                    if (hotDogSlot.getQty() >= 1 && breadSlot.getQty() >= 1 && lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                    if (hotDogSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
                         hotDogSlot.setQty(hotDogSlot.getQty() - 1);
                         breadSlot.setQty(breadSlot.getQty() - 1);
                         lettuceSlot.setQty(lettuceSlot.getQty() - 1);
@@ -109,7 +109,8 @@ public class VendingMachine {
                         return null;
                     }
                 } else if (slotNumber == 10) { // Healthy Ham Sandwich
-                    if (hamSlot.getQty() >= 1 && breadSlot.getQty() >= 1 && lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                    if (hamSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
                         hamSlot.setQty(hamSlot.getQty() - 1);
                         breadSlot.setQty(breadSlot.getQty() - 1);
                         lettuceSlot.setQty(lettuceSlot.getQty() - 1);
@@ -120,7 +121,8 @@ public class VendingMachine {
                         return null;
                     }
                 } else if (slotNumber == 11) { // Healthy Beef Sandwich
-                    if (beefSlot.getQty() >= 1 && breadSlot.getQty() >= 1 && lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                    if (beefSlot.getQty() >= 1 && breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
                         beefSlot.setQty(beefSlot.getQty() - 1);
                         breadSlot.setQty(breadSlot.getQty() - 1);
                         lettuceSlot.setQty(lettuceSlot.getQty() - 1);
@@ -131,7 +133,8 @@ public class VendingMachine {
                         return null;
                     }
                 } else if (slotNumber == 12) { // Vegetarian Sandwich
-                    if (breadSlot.getQty() >= 1 && lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
+                    if (breadSlot.getQty() >= 1 &&
+                            lettuceSlot.getQty() >= 1 && tomatoSlot.getQty() >= 1) {
                         breadSlot.setQty(breadSlot.getQty() - 1);
                         lettuceSlot.setQty(lettuceSlot.getQty() - 1);
                         tomatoSlot.setQty(tomatoSlot.getQty() - 1);
