@@ -3,13 +3,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-/**
- * Represents the GUI interface for the Special Vending Machine.
- * This class provides a graphical user interface for interacting with the vending machine.
- * Users can perform various actions such as inserting money, selecting and dispensing items,
- * replenishing item quantities, setting item prices, and viewing transaction summaries.
- * Additionally, it allows the preparation steps for special customizable products to be displayed.
- */
+
 public class GUI {
     private SpecialVendingMachine SpecialVendingMachine;
     private JMenuBar menubar;
@@ -17,18 +11,12 @@ public class GUI {
     private JMenuItem display, collectMoney, insertMoney, select, replenishChange, setPrice, summary, displayBills, replenishItem;
 
     JFrame main = new JFrame("Vending Machine");
-    /**
-     * Constructs a GUI for the Special Vending Machine.
-     *
-     * @param SpecialVendingMachine  The Special Vending Machine to be associated with the GUI.
-     */
+
     public GUI(SpecialVendingMachine SpecialVendingMachine) {
         this.SpecialVendingMachine = SpecialVendingMachine;
         mainFrame();
     }
-    /**
-     * Creates the main frame of the GUI.
-     */
+
 
     public void mainFrame() {
         menubar = new JMenuBar();
@@ -440,10 +428,7 @@ public class GUI {
         main.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
     }
-    /**
-     * The main
-     *
-     */
+
     public static void main(String[] args) {
         VendingMachineFactory VendingMachineFactory = new VendingMachineFactory();
         SpecialVendingMachine specialVendingMachine = VendingMachineFactory.createSpecialVendingMachine();
