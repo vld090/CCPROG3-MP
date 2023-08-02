@@ -72,6 +72,10 @@ public class VendingMachine {
         if (slotNumber >= 0 && slotNumber < slots.length) {
             Slots slot = slots[slotNumber];
             if (slot.getAvailability()) {
+                if (paymentProcess.getBalance() <= 0) {
+                    System.out.println("Please insert payment first.");
+                    return null;
+                }
                 int price = slot.getPrice();
 
                 int hotDogSlotNumber = 0;

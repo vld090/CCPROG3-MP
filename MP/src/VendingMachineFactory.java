@@ -87,9 +87,9 @@ public class VendingMachineFactory {
         slots[0] = new Slots(new Item("Hot dog           ", 35), 50, 10);
         slots[1] = new Slots(new Item("Ham              " , 45), 50, 10);
         slots[2] = new Slots(new Item("Beef Slices      ", 40), 100, 10);
-        slots[3] = new Slots(new Item("Lettuce          ", 10), 20, 10);
-        slots[4] = new Slots(new Item("Tomato           ", 10), 20, 10);
-        slots[5] = new Slots(new Item("Egg              ", 20), 20, 10);
+        slots[3] = new Slots(new Item("Lettuce          ", 10), 50, 10);
+        slots[4] = new Slots(new Item("Tomato           ", 10), 50, 10);
+        slots[5] = new Slots(new Item("Egg              ", 20), 50, 10);
         slots[6] = new Slots(new Item("Whole Wheat Bread", 10), 50, 10);
         slots[7] = new Slots(new Item("White Bread      ", 30), 50, 10);
         slots[8] = new Slots(new Item("Skip             ", 0), 0, 10);

@@ -341,7 +341,7 @@ public class GUI {
                 main.getContentPane().removeAll();
                 main.revalidate();
                 main.repaint();
-
+                JLabel label4 = new JLabel("Only Accepts P20, P50, P100, P200, P500, P1000");
                 JLabel label1 = new JLabel("Replenish Change");
                 JLabel label2 = new JLabel("Insert Denomination:");
                 JTextField field1 = new JTextField();
@@ -349,6 +349,7 @@ public class GUI {
                 JTextField field2 = new JTextField();
                 JButton button = new JButton("Replenish");
 
+                label4.setBounds(10, 7, 1000, 25);
                 label1.setBounds(10, 20, 1000, 25);
                 label2.setBounds(10, 50, 1000, 25);
                 label3.setBounds(10, 80, 1000, 25);
@@ -356,6 +357,7 @@ public class GUI {
                 field2.setBounds(150,80,50,25);
                 button.setBounds(10, 100, 100, 25);
 
+                main.add(label4);
                 main.add(label1);
                 main.add(label2);
                 main.add(field1);
@@ -363,6 +365,7 @@ public class GUI {
                 main.add(field2);
                 main.add(button);
 
+                label4.setVisible(true);
                 label1.setVisible(true);
                 label2.setVisible(true);
                 label3.setVisible(true);

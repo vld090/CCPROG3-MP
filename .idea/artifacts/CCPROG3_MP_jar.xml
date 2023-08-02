@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact name="CCPROG3-MP:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/CCPROG3_MP_jar</output-path>
+    <root id="root">
+      <element id="archive" name="CCPROG3-MP.jar">
+        <element id="module-output" name="CCPROG3-MP" />
+      </element>
+    </root>
+  </artifact>
+</component>
