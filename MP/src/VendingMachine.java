@@ -1,10 +1,12 @@
 import java.util.ArrayList;
 
+import javax.swing.JOptionPane;
+
 /**
  * Represents a vending machine that holds slots of items and handles transactions.
  */
 public class VendingMachine {
-    private static Slots[] slots;
+    private ArrayList<Slots> slots;
     private ArrayList<Transaction> transactionLog;
     private PaymentProcess paymentProcess;
 
@@ -14,10 +16,16 @@ public class VendingMachine {
      * @param slots          the array of slots containing items
      * @param paymentProcess the payment process for handling transactions
      */
-    public VendingMachine(Slots[] slots, PaymentProcess paymentProcess) {
-        this.slots = slots;
-        this.paymentProcess = paymentProcess;
+    public VendingMachine() {
+        this.slots = null;
+        this.paymentProcess = null;
         this.transactionLog = new ArrayList<>();
+    }
+    public void setSlots(ArrayList<Slots> slots){
+        this.slots = slots;
+    }
+    public void setPaymentProcess(PaymentProcess paymentProcess){
+        this.paymentProcess = paymentProcess;
     }
 
     /**
@@ -25,8 +33,8 @@ public class VendingMachine {
      */
     public void displayItems() {
         System.out.println("Available items:");
-        for (int i = 0; i < slots.length; i++) {
-            Slots slot = slots[i];
+        for (int i = 0; i < slots.size(); i++) {
+            Slots slot = slots.get(i);
             Item item = slot.getItem();
             if (item != null) {
                 System.out.print("Slot " + i + ": ");
@@ -69,8 +77,8 @@ public class VendingMachine {
      * @return the dispensed item, or null if the slot is empty or the payment is insufficient
      */
     public Item dispenseItem(int slotNumber) {
-        if (slotNumber >= 0 && slotNumber < slots.length) {
-            Slots slot = slots[slotNumber];
+        if (slotNumber >= 0 && slotNumber < slots.size()) {
+            Slots slot = slots.get(slotNumber);
             if (slot.getAvailability()) {
                 if (paymentProcess.getBalance() <= 0) {
                     System.out.println("Please insert payment first.");
@@ -85,12 +93,12 @@ public class VendingMachine {
                 int lettuceSlotNumber = 3;
                 int tomatoSlotNumber = 4;
 
-                Slots hotDogSlot = slots[hotDogSlotNumber];
-                Slots hamSlot = slots[hamSlotNumber];
-                Slots beefSlot = slots[beefSlotNumber];
-                Slots breadSlot = slots[breadSlotNumber];
-                Slots lettuceSlot = slots[lettuceSlotNumber];
-                Slots tomatoSlot = slots[tomatoSlotNumber];
+                Slots hotDogSlot = slots.get(hotDogSlotNumber);
+                Slots hamSlot = slots.get(hamSlotNumber);
+                Slots beefSlot = slots.get(beefSlotNumber);
+                Slots breadSlot = slots.get(breadSlotNumber);
+                Slots lettuceSlot = slots.get(lettuceSlotNumber);
+                Slots tomatoSlot = slots.get(tomatoSlotNumber);
 
                 if(slotNumber == lettuceSlotNumber){
                     System.out.println("Not allowed to buy as a single item");
@@ -183,8 +191,8 @@ public class VendingMachine {
      * @param qty        the quantity to add to the slot
      */
     public void restockItem(int slotNumber, int qty) {
-        if (slotNumber >= 0 && slotNumber < slots.length) {
-            Slots slot = slots[slotNumber];
+        if (slotNumber >= 0 && slotNumber < slots.size()) {
+            Slots slot = slots.get(slotNumber);
             slot.setQty(qty);
             System.out.println("Restocked item in slot " + slotNumber + " with quantity " + qty);
         } else {
@@ -199,8 +207,8 @@ public class VendingMachine {
      * @param price      the price to set for the item
      */
     public void setPrice(int slotNumber, int price) {
-        if (slotNumber >= 0 && slotNumber < slots.length) {
-            Slots slot = slots[slotNumber];
+        if (slotNumber >= 0 && slotNumber < slots.size()) {
+            Slots slot = slots.get(slotNumber);
             slot.setPrice(price);
             System.out.println("Set price of item in slot " + slotNumber + " to " + price);
         } else {
@@ -241,7 +249,7 @@ public class VendingMachine {
      *
      * @return the array of slots
      */
-    public static Slots[] getSlots() {
+    public ArrayList<Slots> getSlots() {
         return slots;
     }
 
@@ -255,8 +263,8 @@ public class VendingMachine {
     }
 
     public String replenishItem(int slotNumber, int quantity) {
-        if (slotNumber >= 0 && slotNumber < slots.length) {
-            Slots slot = slots[slotNumber];
+        if (slotNumber >= 0 && slotNumber < slots.size()) {
+            Slots slot = slots.get(slotNumber);
             slot.setQty(slot.getQty() + quantity);
             return "Restocked item in slot " + slotNumber + " with quantity " + quantity;
         } else {
@@ -265,8 +273,8 @@ public class VendingMachine {
     }
 
     public String setItemPrice(int slotNumber, int price) {
-        if (slotNumber >= 0 && slotNumber < slots.length) {
-            Slots slot = slots[slotNumber];
+        if (slotNumber >= 0 && slotNumber < slots.size()) {
+            Slots slot = slots.get(slotNumber);
             slot.setPrice(price);
             return "Set price of item in slot " + slotNumber + " to " + price;
         } else {
@@ -277,5 +285,37 @@ public class VendingMachine {
 
     public PaymentProcess getPaymentProcess() {
         return paymentProcess;
+    }
+
+
+    public void showSteps(int slotNumber) {
+    StringBuilder steps = new StringBuilder();
+
+    if (slotNumber == 9) {
+        steps.append("Get hotdog\n");
+        steps.append("Put in whole wheat bread\n");
+        steps.append("Add lettuce\n");
+        steps.append("Add tomato");
+    } else if (slotNumber == 10) {
+        steps.append("Get ham\n");
+        steps.append("Put in whole wheat bread\n");
+        steps.append("Add lettuce\n");
+        steps.append("Add tomato");
+    } else if (slotNumber == 11) {
+        steps.append("Get beef\n");
+        steps.append("Put in whole wheat bread\n");
+        steps.append("Add lettuce\n");
+        steps.append("Add tomato");
+    } else if (slotNumber == 12) {
+        steps.append("Put in whole wheat bread\n");
+        steps.append("Add lettuce\n");
+        steps.append("Add tomato");
+    } else {
+        // For other slots, no specific steps
+        steps.append("No specific steps for this item.");
+    }
+
+    // Show the steps in a message dialog
+    JOptionPane.showMessageDialog(null, steps.toString(), "Preparation Steps", JOptionPane.INFORMATION_MESSAGE);
     }
 }

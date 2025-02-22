@@ -1,5 +1,3 @@
-import java.util.List;
-
 /**
  * Represents an item that can be stored in the vending machine.
  */

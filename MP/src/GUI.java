@@ -1,18 +1,17 @@
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 public class GUI {
-    private SpecialVendingMachine SpecialVendingMachine;
+    private VendingMachine SpecialVendingMachine;
     private JMenuBar menubar;
     private JMenu menu;
     private JMenuItem display, collectMoney, insertMoney, select, replenishChange, setPrice, summary, displayBills, replenishItem;
 
     JFrame main = new JFrame("Vending Machine");
 
-    public GUI(SpecialVendingMachine SpecialVendingMachine) {
+    public GUI(VendingMachine SpecialVendingMachine) {
         this.SpecialVendingMachine = SpecialVendingMachine;
         mainFrame();
     }
@@ -54,8 +53,8 @@ public class GUI {
                 JScrollPane scrollPane = new JScrollPane(itemsArea);
 
                 itemsArea.setText("Available items:\n");
-                for (int i = 0; i < SpecialVendingMachine.getSlots().length; i++) {
-                    Slots slot = SpecialVendingMachine.getSlots()[i];
+                for (int i = 0; i < SpecialVendingMachine.getSlots().size(); i++) {
+                    Slots slot = SpecialVendingMachine.getSlots().get(i);
                     Item item = slot.getItem();
                     if (item != null) {
                         itemsArea.append("Slot " + i + ": " + item.getName() + " - Price: " + slot.getPrice() + " - Quantity: " + slot.getQty() + " - Calories: " + item.getCalories() + "\n");
@@ -434,7 +433,7 @@ public class GUI {
 
     public static void main(String[] args) {
         VendingMachineFactory VendingMachineFactory = new VendingMachineFactory();
-        SpecialVendingMachine specialVendingMachine = VendingMachineFactory.createSpecialVendingMachine();
+        VendingMachine specialVendingMachine = VendingMachineFactory.createSpecialVendingMachine();
         GUI g = new GUI(specialVendingMachine);
     }
 }

@@ -1,4 +1,3 @@
-import java.util.List;
 
 /**
  * Represents a slot in a vending machine that holds an item.
