@@ -22,21 +22,21 @@ public class PaymentProcess {
 
     // Initialize the bill denominations with initial quantities
     private void initializeBillDenominations() {
-        billDenominations.put("P20", 0);
-        billDenominations.put("P50", 0);
-        billDenominations.put("P100", 0);
-        billDenominations.put("P200", 0);
-        billDenominations.put("P500", 0);
-        billDenominations.put("P1000", 0);
+        billDenominations.put("20", 0);
+        billDenominations.put("50", 0);
+        billDenominations.put("100", 0);
+        billDenominations.put("200", 0);
+        billDenominations.put("500", 0);
+        billDenominations.put("1000", 0);
     }
 
     public void ZeroBillDenominations() {
-        billDenominations.put("P20", 0);
-        billDenominations.put("P50", 0);
-        billDenominations.put("P100", 0);
-        billDenominations.put("P200", 0);
-        billDenominations.put("P500", 0);
-        billDenominations.put("P1000", 0);
+        billDenominations.put("20", 0);
+        billDenominations.put("50", 0);
+        billDenominations.put("100", 0);
+        billDenominations.put("200", 0);
+        billDenominations.put("500", 0);
+        billDenominations.put("1000", 0);
     }
 
 
@@ -144,17 +144,17 @@ public class PaymentProcess {
     // Get the amount associated with a specific denomination
     private int getDenominationAmount(String denomination) {
         switch (denomination) {
-            case "P20":
+            case "20":
                 return 20;
-            case "P50":
+            case "50":
                 return 50;
-            case "P100":
+            case "100":
                 return 100;
-            case "P200":
+            case "200":
                 return 200;
-            case "P500":
+            case "500":
                 return 500;
-            case "P1000":
+            case "1000":
                 return 1000;
             default:
                 return 0;
