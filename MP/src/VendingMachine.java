@@ -234,7 +234,7 @@ public class VendingMachine {
      */
     public void emptyMoney() {
         paymentProcess.collectPayment();
-        paymentProcess.zeroBillDenominations();
+        paymentProcess.ZeroBillDenominations();
     }
 
     /**
